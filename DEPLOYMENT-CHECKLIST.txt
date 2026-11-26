@@ -1,0 +1,65 @@
+CCREST.in — Production Deployment Checklist
+==========================================
+
+[ ] 1. Hostinger account + Starter plan active
+[ ] 2. Domain ccrest.in pointed to hosting
+[ ] 3. WordPress installed
+[ ] 4. SSL (HTTPS) enabled
+[ ] 5. All 17+ free plugins installed (see PRODUCTION-DEPLOYMENT-GUIDE.md)
+
+Core Plugins:
+[ ] Tutor LMS
+[ ] Elementor
+[ ] WooCommerce
+[ ] Razorpay for WooCommerce
+[ ] Stripe for WooCommerce
+[ ] WooCommerce PDF Invoices
+[ ] WP Mail SMTP
+[ ] The Events Calendar
+[ ] Wordfence
+[ ] UpdraftPlus
+
+[ ] 6. Theme installed (Astra or Hello Elementor)
+[ ] 7. Logo uploaded (assets/images/logo.png)
+[ ] 8. Brand colors set (#0F2744 navy + #C9A34E gold)
+
+Payments:
+[ ] 9. Razorpay test keys added + tested
+[ ] 10. Stripe test keys added + tested
+[ ] 11. Switch both to LIVE mode after testing
+
+Content:
+[ ] 12. Homepage built in Elementor
+[ ] 13. At least 3 courses created in Tutor LMS
+[ ] 14. One free course + one paid course live
+[ ] 15. Certificates designed
+[ ] 16. Events added in The Events Calendar
+
+Users:
+[ ] 17. Real Super Admin created
+[ ] 18. At least 1 Teacher account created
+[ ] 19. Test Learner account created
+
+Testing:
+[ ] 20. Free course enrolment works
+[ ] 21. Paid course checkout works (both gateways)
+[ ] 22. Certificate downloads correctly
+[ ] 23. Learner dashboard shows progress
+[ ] 24. Emails are being sent (Brevo SMTP)
+
+Security & Backups:
+[ ] 25. Wordfence firewall active
+[ ] 26. UpdraftPlus connected to Google Drive
+[ ] 27. Daily backup scheduled
+[ ] 28. Cloudflare Turnstile (or similar) on forms
+
+Final:
+[ ] 29. All demo content replaced with real content
+[ ] 30. Site live at https://ccrest.in
+[ ] 31. Google Analytics 4 connected
+
+Date completed: ________________
+Launched by: ________________
+
+---
+Keep this checklist with your project files.

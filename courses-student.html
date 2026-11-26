@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCREST - Student Courses</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #172b4d;
+        }
+
+        header {
+            background: #172b4d;
+            color: white;
+            padding: 25px 40px;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .course-card h2 {
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .price {
+            color: #0b7a53;
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .course-card p {
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .level {
+            display: inline-block;
+            background: #e8efff;
+            color: #1d4ed8;
+            padding: 6px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            background: #172b4d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #254a7a;
+        }
+
+        /* Course Details Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+    color: #172b4d;
+}
+
+.modal-content h3 {
+    color: #0b7a53;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #666;
+}
+
+.close-modal:hover {
+    color: #000;
+}
+
+    /* Enrollment Form Styling */
+#enrollmentModal .modal-content {
+    max-width: 600px;
+    width: 90%;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+#enrollmentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#enrollmentForm label {
+    font-weight: 600;
+    margin-top: 5px;
+}
+
+#enrollmentForm input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+#enrollmentForm input:focus {
+    outline: none;
+    border-color: #193153;
+}
+
+#enrollmentCourseName {
+    margin-top: 15px;
+    color: #193153;
+}
+
+#enrollmentCoursePrice {
+    color: #00804a;
+}
+
+#enrollmentForm button {
+    margin-top: 15px;
+}
+
+
+    </style>
+</head>
+<body>
+
+   <header>
+    <h1>CCREST — Explore Courses</h1>
+</header>
+
+<div class="container">
+    <h2 style="margin-bottom: 25px;">Available Courses</h2>
+
+    <div id="courseList" class="course-grid">
+        <p>Loading courses...</p>
+    </div>
+</div>
+
+    <div id="courseList">
+        <p>Loading courses...</p>
+    </div>
+
+
+    <!-- Course Details Modal -->
+<div id="courseModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle"></h2>
+        <h3 id="modalPrice"></h3>
+        <p id="modalLevel"></p>
+        <p id="modalInstructor"></p>
+        <p id="modalDescription"></p>
+
+        <button id="enrollButton" onclick="enrollCourse()" class="enroll-btn">
+    Enroll Now
+</button>
+    </div>
+</div>
+
+
+    <!-- Student Enrollment Modal -->
+<div id="enrollmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeEnrollmentModal()">&times;</span>
+
+        <h2>Student Enrollment</h2>
+
+        <form id="enrollmentForm" onsubmit="processEnrollment(event)">
+            <label>Full Name</label>
+            <input type="text" id="studentName" placeholder="Enter your full name" required>
+
+            <label>Email</label>
+            <input type="email" id="studentEmail" placeholder="Enter your email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" id="studentPhone" placeholder="Enter your phone number" required pattern="[0-9]{10}">
+
+            <h3 id="enrollmentCourseName"></h3>
+            <h3 id="enrollmentCoursePrice"></h3>
+
+            <button type="submit" class="enroll-btn">Continue to Payment</button>
+        </form>
+    </div>
+</div>
+
+    <script>
+const API_URL = "http://localhost:5000/api/courses";
+
+async function loadCourses() {
+    const courseList = document.getElementById("courseList");
+
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch courses");
+        }
+
+        const courses = await response.json();
+
+        courseList.innerHTML = "";
+
+        if (courses.length === 0) {
+            courseList.innerHTML = "<p>No courses available.</p>";
+            return;
+        }
+
+        courses.forEach(course => {
+            const courseCard = document.createElement("div");
+
+          courseCard.className = "course-card";
+            courseCard.innerHTML = `
+                <h2>${escapeHTML(course.title)}</h2>
+                <h3>₹${Number(course.price).toLocaleString("en-IN")}</h3>
+                <p><strong>Level:</strong> ${escapeHTML(course.level)}</p>
+                <p><strong>Instructor:</strong> ${escapeHTML(course.instructor || "Not specified")}</p>
+                <p>${escapeHTML(course.description || "No description available")}</p>
+                <button onclick="viewCourseDetails('${course._id}')">View Details</button>
+            `;
+
+            courseList.appendChild(courseCard);
+        });
+
+    } catch (error) {
+        courseList.innerHTML = "<p>Unable to load courses. Check backend server.</p>";
+        console.error(error);
+    }
+}
+
+
+    async function viewCourseDetails(courseId) {
+    try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("Failed to fetch courses");
+        }
+
+        const courses = await response.json();
+
+        const course = courses.find(c => c._id === courseId);
+
+        if (!course) {
+            alert("Course not found.");
+            return;
+        }
+
+        document.getElementById("modalTitle").textContent = course.title;
+        document.getElementById("modalPrice").textContent =
+            "₹" + Number(course.price).toLocaleString("en-IN");
+        document.getElementById("modalLevel").textContent =
+            "Level: " + course.level;
+        document.getElementById("modalInstructor").textContent =
+            "Instructor: " + (course.instructor || "Not specified");
+        document.getElementById("modalDescription").textContent =
+            course.description || "No description available";
+
+        document.getElementById("courseModal").style.display = "flex";
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to load course details.");
+    }
+}
+
+
+function closeModal() {
+    document.getElementById("courseModal").style.display = "none";
+}
+
+
+function enrollCourse() {
+    const courseName = document.getElementById("modalTitle").textContent;
+    const coursePrice = document.getElementById("modalPrice").textContent;
+
+    document.getElementById("enrollmentCourseName").textContent = courseName;
+    document.getElementById("enrollmentCoursePrice").textContent = coursePrice;
+
+    document.getElementById("courseModal").style.display = "none";
+    document.getElementById("enrollmentModal").style.display = "flex";
+}
+
+
+
+function closeEnrollmentModal() {
+    document.getElementById("enrollmentModal").style.display = "none";
+}
+
+
+async function processEnrollment(event) {
+    event.preventDefault();
+
+    const studentName = document.getElementById("studentName").value.trim();
+    const studentEmail = document.getElementById("studentEmail").value.trim();
+    const studentPhone = document.getElementById("studentPhone").value.trim();
+    const courseName = document.getElementById("enrollmentCourseName").textContent;
+
+    try {
+        // Step 1: Get the course
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            alert("Unable to fetch courses.");
+            return;
+        }
+
+        const courses = await response.json();
+
+        const selectedCourse = courses.find(
+            course => course.title === courseName
+        );
+
+        if (!selectedCourse) {
+            alert("Course not found.");
+            return;
+        }
+
+        // Step 2: Save enrollment
+        const enrollmentResponse = await fetch("http://localhost:5000/api/enrollments", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                studentName,
+                studentEmail,
+                studentPhone,
+                courseId: selectedCourse._id
+            })
+        });
+
+        const enrollmentResult = await enrollmentResponse.json();
+
+        if (!enrollmentResponse.ok) {
+            alert(enrollmentResult.message || "Enrollment failed.");
+            return;
+        }
+
+        const enrollmentId = enrollmentResult.enrollment._id;
+
+        // Step 3: Create Razorpay order
+        const orderResponse = await fetch("http://localhost:5000/api/payment/create-order", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                enrollmentId
+            })
+        });
+
+        const orderResult = await orderResponse.json();
+
+        if (!orderResponse.ok) {
+            alert(orderResult.message || "Unable to create payment order.");
+            return;
+        }
+
+        // Step 4: Open Razorpay Checkout
+        const options = {
+            key: orderResult.keyId,
+            amount: orderResult.amount,
+            currency: orderResult.currency,
+            name: "CCREST",
+            description: courseName,
+            order_id: orderResult.orderId,
+
+            prefill: {
+                name: studentName,
+                email: studentEmail,
+                contact: studentPhone
+            },
+
+            theme: {
+                color: "#3399cc"
+            },
+
+          handler: async function (paymentResponse) {
+    try {
+        const verifyResponse = await fetch("http://localhost:5000/api/payment/verify", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                razorpay_order_id: paymentResponse.razorpay_order_id,
+                razorpay_payment_id: paymentResponse.razorpay_payment_id,
+                razorpay_signature: paymentResponse.razorpay_signature,
+                enrollmentId: enrollmentId
+            })
+        });
+
+        const verifyResult = await verifyResponse.json();
+
+        if (verifyResponse.ok) {
+            alert("Payment verified successfully! Your enrollment is confirmed.");
+            console.log("Verified enrollment:", verifyResult.enrollment);
+        } else {
+            alert(verifyResult.message || "Payment verification failed.");
+            console.error("Verification error:", verifyResult);
+        }
+
+    } catch (error) {
+        console.error("Verification error:", error);
+        alert("Unable to verify payment. Please contact support.");
+    }
+}
+        };
+
+        const razorpayCheckout = new Razorpay(options);
+
+        razorpayCheckout.on('payment.failed', function (response) {
+            alert("Payment failed. Please try again.");
+            console.error("Payment failure:", response.error);
+        });
+
+        razorpayCheckout.open();
+
+    } catch (error) {
+        console.error("Enrollment/payment error:", error);
+        alert("Unable to connect to the backend.");
+    }
+}
+
+
+
+function escapeHTML(value) {
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+loadCourses();
+</script>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</body>
+</html>

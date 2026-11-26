@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events &amp; Webinars — CCREST.in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@500;600&amp;display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .navy { color: #0F2744; }
+    </style>
+</head>
+<body class="bg-white">
+    <!-- Top bar -->
+    <div class="bg-[#0F2744] text-white py-[7px]">
+        <div class="max-w-screen-2xl mx-auto px-6 flex items-center justify-between text-xs">
+            <div>Events Calendar — CCREST</div>
+            <div class="flex items-center gap-x-4">
+                <span onclick="showLoginModal()" class="cursor-pointer">Login</span>
+            </div>
+        </div>
+    </div>
+    
+    <header class="border-b">
+        <div class="max-w-screen-2xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="assets/images/logo.png" class="h-9" alt="">
+                    <span class="font-extrabold ml-2 tracking-tighter text-3xl text-[#0F2744]">CCREST</span>
+                </a>
+            </div>
+            
+            <nav class="hidden md:flex items-center text-sm font-medium gap-x-7">
+                <a href="index.html" class="text-slate-700">Home</a>
+                <a href="courses.html" class="text-slate-700">Courses</a>
+                <a href="events.html" class="font-semibold text-[#0F2744]">Events</a>
+                <a href="about.html" class="text-slate-700">About</a>
+                <a href="blog.html" class="text-slate-700">Blog</a>
+                <a href="contact.html" class="text-slate-700">Contact</a>
+            </nav>
+            
+            <div>
+                <button onclick="showLoginModal()" class="px-5 py-2 text-xs bg-[#0F2744] text-white rounded-2xl font-bold px-4">Login</button>
+            </div>
+        </div>
+    </header>
+    
+    <div class="max-w-screen-2xl mx-auto px-6 pt-8">
+        <div class="flex items-end justify-between">
+            <div>
+                <h1 class="font-extrabold text-4xl">Events &amp; Webinars</h1>
+                <p class="text-slate-600 mt-1">Live sessions and workshops for clinical research professionals</p>
+            </div>
+            <div>
+                <button onclick="showAddEventModal()" class="px-4 py-2 px-5 text-xs font-extrabold bg-white border rounded-2xl flex items-center gap-x-2">
+                    <i class="fas fa-plus"></i> <span>Add Event</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Calendar view simulation -->
+        <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-7">
+                <div class="font-extrabold px-1 mb-3">Upcoming Events</div>
+                
+                <div id="events-list" class="space-y-3">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+            
+            <div class="lg:col-span-5">
+                <div class="px-1 mb-2 font-extrabold">Calendar</div>
+                
+                <div class="bg-white border rounded-3xl p-4">
+                    <div class="text-sm font-extrabold flex justify-between mb-2 px-2">
+                        <div>February 2026</div>
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-chevron-left text-xs cursor-pointer"></i>
+                            <i class="fas fa-chevron-right text-xs cursor-pointer"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-7 gap-1 text-center text-xs font-bold">
+                        <div class="text-emerald-600">S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div>
+                        
+                        <div class="text-slate-300">29</div><div class="text-slate-300">30</div><div class="text-slate-300">31</div>
+                        <div class="px-1 py-[3px]">1</div><div class="px-1 py-[3px]">2</div><div class="px-1 py-[3px]">3</div><div class="px-1 py-[3px]">4</div>
+                        <div class="px-1 py-[3px]">5</div><div class="px-1 py-[3px]">6</div><div class="px-1 py-[3px]">7</div>
+                        <div class="px-1 py-[3px]">8</div><div class="px-1 py-[3px]">9</div><div class="px-1 py-[3px]">10</div>
+                        <div class="px-1 py-[3px]">11</div><div class="px-1 py-[3px]">12</div>
+                        <div class="bg-emerald-100 text-emerald-700 px-1 py-[3px] rounded font-extrabold">13</div>
+                        <div class="px-1 py-[3px]">14</div><div class="px-1 py-[3px]">15</div><div class="px-1 py-[3px]">16</div>
+                        <div class="px-1 py-[3px]">17</div><div class="px-1 py-[3px]">18</div><div class="px-1 py-[3px]">19</div>
+                        <div class="px-1 py-[3px]">20</div>
+                        <div class="px-1 py-[3px]">21</div><div class="px-1 py-[3px]">22</div><div class="px-1 py-[3px]">23</div>
+                        <div class="px-1 py-[3px]">24</div><div class="px-1 py-[3px]">25</div>
+                        <div onclick="registerForEvent(1)" class="cursor-pointer px-1 py-[3px] bg-emerald-600 text-white font-bold rounded">26</div>
+                        <div class="px-1 py-[3px]">27</div><div class="px-1 py-[3px]">28</div>
+                    </div>
+                    
+                    <div class="text-[10px] px-1 mt-4 text-emerald-700">26 Feb — CDSCO Submissions webinar</div>
+                </div>
+                
+                <div class="mt-4 px-1">
+                    <div class="font-bold text-xs mb-1">Past Events</div>
+                    <div class="text-xs text-slate-500">• 12 Feb: ICH Updates Live (1,340 attendees)</div>
+                    <div class="text-xs text-slate-500">• 28 Jan: Career in Clinical Research (recorded)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let currentUser = null;
+        
+        function checkLogin() {
+            const saved = localStorage.getItem('ccrest_user');
+            if (saved) currentUser = JSON.parse(saved);
+        }
+        
+        function renderEvents() {
+            const container = document.getElementById('events-list');
+            
+            const events = [
+                {id: 1, title: "Navigating CDSCO Submissions in 2026", date: "Feb 26, 2026", time: "11:00 AM IST", type: "Webinar", registered: 1244, speaker: "Dr. Priya Menon", isLive: true},
+                {id: 2, title: "Advanced Data Management in Clinical Trials", date: "Mar 4, 2026", time: "3:00 PM IST", type: "Webinar", registered: 876, speaker: "Dr. Vikram Sharma"},
+                {id: 3, title: "Hands-on GCP Compliance Workshop", date: "Mar 12, 2026", time: "10:00 AM IST", type: "Workshop", registered: 512, speaker: "Prof. Meera Iyer"},
+                {id: 4, title: "Career Pathways in Clinical Research", date: "Mar 19, 2026", time: "4:00 PM IST", type: "Webinar", registered: 320, speaker: "Dr. Ananya Rao"}
+            ];
+            
+            let html = '';
+            
+            events.forEach(ev => {
+                const isRegistered = JSON.parse(localStorage.getItem('ccrest_enrolled_events') || '[]').includes(ev.id);
+                
+                html += `
+                    <div class="bg-white border rounded-3xl px-5 py-4 flex flex-col md:flex-row items-start md:items-center gap-x-5">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2">
+                                <span class="font-extrabold">${ev.title}</span>
+                                ${ev.isLive ? `<span class="px-2 py-px text-xs bg-emerald-700 text-white rounded px-2.5 font-bold">LIVE</span>` : ''}
+                            </div>
+                            <div class="text-xs mt-1 text-slate-500">${ev.date} • ${ev.time} • ${ev.speaker}</div>
+                            
+                            <div class="mt-3 flex items-center gap-2 text-xs">
+                                <div><span class="font-bold">${ev.registered}</span> registered</div>
+                                <div class="px-2 py-px bg-slate-100 text-slate-600 text-xs font-medium rounded px-2">${ev.type}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex-shrink-0 mt-3 md:mt-0">
+                            ${isRegistered ? 
+                                `<div class="px-4 py-[7px] bg-emerald-700 text-white text-xs px-5 font-extrabold rounded-2xl">Registered</div>` : 
+                                `<button onclick="registerForEvent(${ev.id}, this)" class="px-5 py-[7px] px-6 font-extrabold text-xs bg-[#0F2744] text-white rounded-2xl">Register</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        function registerForEvent(eventId, btn) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            let enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_events') || '[]');
+            if (!enrolled.includes(eventId)) enrolled.push(eventId);
+            localStorage.setItem('ccrest_enrolled_events', JSON.stringify(enrolled));
+            
+            if (btn) {
+                btn.outerHTML = `<div class="px-4 py-[7px] bg-emerald-700 text-white text-xs px-5 font-extrabold rounded-2xl">Registered</div>`;
+            } else {
+                const toast = document.createElement('div');
+                toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#166534;color:white;padding:7px 16px;border-radius:9999px;font-size:0.7rem';
+                toast.innerHTML = `Registered for event! Check email for link.`;
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2200);
+            }
+            
+            // Re-render list
+            setTimeout(() => renderEvents(), 400);
+        }
+        
+        function showAddEventModal() {
+            if (!currentUser || currentUser.role !== 'admin' && currentUser.role !== 'teacher') {
+                alert('Only admin or teachers can add events.');
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[300]`;
+            
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl max-w-md w-full mx-4 p-6">
+                    <div class="font-extrabold">Add New Event</div>
+                    
+                    <div class="mt-4 space-y-3">
+                        <input type="text" placeholder="Event title" value="Regulatory Updates Webinar" class="w-full border px-4 py-[9px] text-sm rounded-2xl">
+                        
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" placeholder="Date" value="Mar 25, 2026" class="border px-4 py-[9px] text-sm rounded-2xl">
+                            <input type="text" placeholder="Time" value="2:00 PM IST" class="border px-4 py-[9px] text-sm rounded-2xl">
+                        </div>
+                        
+                        <div>
+                            <select class="w-full border px-4 py-[9px] text-sm rounded-2xl">
+                                <option>Webinar</option>
+                                <option>Workshop</option>
+                                <option>Live Session</option>
+                            </select>
+                        </div>
+                        
+                        <textarea class="w-full border px-4 py-2 text-sm rounded-2xl" rows="2" placeholder="Description"></textarea>
+                    </div>
+                    
+                    <div class="flex mt-5 gap-x-3">
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 text-xs font-bold py-[8px] rounded-2xl border">Cancel</button>
+                        <button onclick="addNewEvent(this)" class="flex-1 text-xs font-extrabold py-[8px] bg-[#0F2744] text-white rounded-2xl">Create Event</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function addNewEvent(el) {
+            el.innerHTML = `Creating...`;
+            
+            setTimeout(() => {
+                el.closest('.fixed').remove();
+                
+                const toast = document.createElement('div');
+                toast.style.cssText = `position:fixed;bottom:20px;right:20px;background:#0F2744;color:white;padding:7px 16px;border-radius:9999px;font-size:0.7rem`;
+                toast.innerHTML = `Event added successfully (demo).`;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                    window.location.reload();
+                }, 1400);
+            }, 1200);
+        }
+        
+        function showLoginModal() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 flex items-center justify-center bg-black/60 z-[300]`;
+            modal.innerHTML = `
+                <div onclick="event.target.remove()" class="bg-white w-full max-w-[310px] mx-4 rounded-3xl p-5">
+                    <div class="font-extrabold">Login to register for events</div>
+                    
+                    <div class="mt-4">
+                        <input placeholder="Email" value="learner@demo.ccrest.in" class="px-4 w-full py-2 border text-sm rounded-2xl">
+                        <button onclick="performQuickLogin(this)" class="mt-3 w-full py-[9px] bg-[#0F2744] font-extrabold text-white text-xs rounded-2xl">Login</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function performQuickLogin(el) {
+            currentUser = { id: 101, name: "Aarav Mehta", email: "learner@demo.ccrest.in", role: "learner" };
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            el.closest('.fixed').remove();
+            window.location.reload();
+        }
+        
+        function initEvents() {
+            checkLogin();
+            renderEvents();
+            
+            // Add demo registration state if needed
+            console.log('%c[CCREST] Events page loaded (Events Calendar free plugin simulation).', 'color:#64748b;font-size:9px');
+        }
+        
+        window.onload = initEvents;
+    </script>
+</body>
+</html>

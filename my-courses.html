@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Courses - CCREST</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #172b4d;
+        }
+
+        header {
+            background: #172b4d;
+            color: white;
+            padding: 30px 40px;
+        }
+
+        header h1 {
+            margin-bottom: 8px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .search-box h2 {
+            margin-bottom: 15px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            background: #172b4d;
+            color: white;
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .search-box button:hover {
+            background: #254570;
+        }
+
+        #courseList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .course-card h3 {
+            margin-bottom: 15px;
+            color: #172b4d;
+        }
+
+        .course-card p {
+            margin-bottom: 12px;
+            color: #555;
+            line-height: 1.5;
+        }
+
+        .paid-badge {
+            display: inline-block;
+            background: #d1fae5;
+            color: #047857;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .empty-message {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            color: #666;
+        }
+
+        #message {
+            margin-top: 15px;
+            color: #b91c1c;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 25px 20px;
+            }
+
+            .container {
+                margin: 20px auto;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>CCREST - My Courses</h1>
+    <p>View your enrolled courses</p>
+</header>
+
+<div class="container">
+
+    <div class="search-box">
+        <h2>Find Your Enrolled Courses</h2>
+
+        <input
+            type="email"
+            id="studentEmail"
+            placeholder="Enter your registered email"
+            required
+        >
+
+        <button onclick="loadMyCourses()">View My Courses</button>
+
+        <p id="message"></p>
+    </div>
+
+    <div id="courseList"></div>
+
+</div>
+
+<script>
+    async function loadMyCourses() {
+        const email = document.getElementById("studentEmail").value.trim();
+        const courseList = document.getElementById("courseList");
+        const message = document.getElementById("message");
+
+        courseList.innerHTML = "";
+        message.textContent = "";
+
+        if (!email) {
+            message.textContent = "Please enter your email address.";
+            return;
+        }
+
+        try {
+            const response = await fetch(
+                `http://localhost:5000/api/my-courses/${encodeURIComponent(email)}`
+            );
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch courses.");
+            }
+
+            const courses = await response.json();
+
+            if (courses.length === 0) {
+                courseList.innerHTML = `
+                    <div class="empty-message">
+                        <h3>No paid courses found.</h3>
+                        <p>Check your email or complete your payment.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            courses.forEach(course => {
+                const card = document.createElement("div");
+                card.className = "course-card";
+
+                card.innerHTML = `
+                    <h3>${escapeHTML(course.courseName)}</h3>
+                    <p><strong>Student:</strong> ${escapeHTML(course.studentName)}</p>
+                    <p><strong>Email:</strong> ${escapeHTML(course.studentEmail)}</p>
+                    <p><strong>Amount Paid:</strong> ₹${Number(course.amount).toLocaleString("en-IN")}</p>
+                    <p><strong>Enrollment Date:</strong> ${new Date(course.createdAt).toLocaleDateString("en-IN")}</p>
+                    <span class="paid-badge">Payment Successful</span>
+                    <button onclick="startLearning('${escapeHTML(course.courseName)}', '${escapeHTML(course.studentName)}')">
+    Start Learning
+</button>
+                `;
+
+                courseList.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error(error);
+            message.textContent = "Unable to load courses. Please try again.";
+        }
+    }
+
+    function escapeHTML(value) {
+        return String(value ?? "").replace(/[&<>"']/g, char => {
+            const replacements = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            };
+
+            return replacements[char];
+        });
+    }
+
+function startLearning(courseName, studentName) {
+    const email = document.getElementById("studentEmail").value.trim();
+
+    window.location.href = "course-learning.html?course="
+        + encodeURIComponent(courseName)
+        + "&email=" + encodeURIComponent(email)
+        + "&name=" + encodeURIComponent(studentName);
+}
+
+</script>
+
+</body>
+</html>

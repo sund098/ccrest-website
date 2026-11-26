@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CCREST.in — Center for Clinical Research Education &amp; Skills Training</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@500;600&amp;display=swap');
+        
+        :root {
+            --navy: #0F2744;
+            --gold: #C9A34E;
+        }
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Poppins', system_ui, sans-serif;
+            font-weight: 600;
+        }
+
+        .navy {
+            color: #0F2744;
+        }
+        
+        .gold {
+            color: #C9A34E;
+        }
+
+        .bg-navy {
+            background-color: #0F2744;
+        }
+
+        .btn-gold {
+            background-color: #C9A34E;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            background-color: #B38A3A;
+            transform: translateY(-1px);
+        }
+
+        .premium-shadow {
+            box-shadow: 0 10px 15px -3px rgb(15 39 68 / 0.1), 0 4px 6px -4px rgb(15 39 68 / 0.1);
+        }
+
+        .section-header {
+            font-size: 2.25rem;
+            line-height: 2.5rem;
+            font-weight: 700;
+            color: #0F2744;
+        }
+
+        .course-card {
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -12px rgb(0 0 0 / 0.1), 0 10px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-link {
+            transition: color 0.2s ease;
+        }
+        
+        .nav-link:hover {
+            color: #C9A34E;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(15, 39, 68, 0.65), rgba(15, 39, 68, 0.45));
+        }
+
+        .stat-number {
+            font-weight: 700;
+            color: #0F2744;
+        }
+
+        .tutor-lms {
+            background: linear-gradient(to right, #f8fafc, #f1e7d2);
+        }
+
+        .professional {
+            font-feature-settings: "ss02";
+        }
+
+        .content-protected {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .lesson-nav {
+            scrollbar-width: thin;
+        }
+
+        .ccrest-logo {
+            font-weight: 800;
+            letter-spacing: -.025em;
+        }
+
+        .premium-card {
+            transition: all .3s ease;
+        }
+
+        .premium-card:hover {
+            box-shadow: 0 10px 15px -3px rgb(15 39 68 / 0.15), 0 4px 6px -4px rgb(15 39 68 / 0.15);
+        }
+
+        .navy-btn {
+            background-color: #0F2744;
+            color: white;
+            transition: all .3s;
+        }
+
+        .navy-btn:hover {
+            background-color: #1a3859;
+        }
+
+        .gold-border {
+            border-color: #C9A34E;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            line-height: 2rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body class="bg-white text-slate-800">
+    <!-- Top Bar -->
+    <div class="bg-[#0F2744] text-white py-2 text-sm">
+        <div class="max-w-screen-2xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center gap-x-4 text-xs">
+                <div class="flex items-center">
+                    <i class="fas fa-globe mr-1.5 text-[#C9A34E]"></i> 
+                    <span>India • Global</span>
+                </div>
+                <div class="hidden md:block">|</div>
+                <div class="hidden md:flex items-center">
+                    <i class="fas fa-phone mr-1.5 text-[#C9A34E]"></i> 
+                    <span>+91 98765 43210</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-x-4 text-xs">
+                <div class="flex items-center gap-x-1">
+                    <span class="font-medium">Free tools only</span>
+                    <span class="px-2 py-0.5 bg-emerald-700 text-emerald-100 rounded text-[10px]">100% Free Stack</span>
+                </div>
+                
+                <div onclick="showLoginModal()" class="flex items-center gap-x-1.5 cursor-pointer hover:text-[#C9A34E]">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="font-medium">Login / Register</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header / Navigation -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto">
+            <div class="px-6 py-4 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-x-3">
+                    <div class="flex items-center">
+                        <img src="assets/images/logo.png" alt="CCREST Logo" class="h-9 w-auto">
+                        <div class="ml-2">
+                            <div class="ccrest-logo text-3xl font-extrabold tracking-tighter text-[#0F2744]">CCREST</div>
+                            <div class="text-[9px] font-bold tracking-[1.25px] text-slate-500 -mt-1">CENTER FOR CLINICAL RESEARCH</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                    <a href="index.html" class="nav-link text-[#0F2744] font-semibold">Home</a>
+                    <a href="courses.html" class="nav-link text-slate-700 hover:text-[#0F2744]">Courses</a>
+                    <a href="events.html" class="nav-link text-slate-700 hover:text-[#0F2744]">Events</a>
+                    <a href="about.html" class="nav-link text-slate-700 hover:text-[#0F2744]">About</a>
+                    <a href="blog.html" class="nav-link text-slate-700 hover:text-[#0F2744]">Blog</a>
+                    <a href="contact.html" class="nav-link text-slate-700 hover:text-[#0F2744]">Contact</a>
+                </nav>
+                
+                <div class="flex items-center gap-x-2">
+                    <!-- CTA Buttons -->
+                    <a href="courses.html" 
+                       class="hidden md:inline-flex items-center px-4 py-2 text-sm font-semibold text-[#0F2744] border border-[#0F2744] hover:bg-slate-50 rounded-full px-5 transition-colors">
+                        Browse Courses
+                    </a>
+                    
+                    <button onclick="showLoginModal()" 
+                            class="px-5 py-2.5 text-sm font-semibold bg-[#0F2744] hover:bg-[#1a3859] text-white rounded-full flex items-center justify-center gap-x-2 transition-all">
+                        <i class="fas fa-user mr-1"></i>
+                        <span class="font-semibold">Login</span>
+                    </button>
+                    
+                    <!-- Mobile Menu -->
+                    <div class="md:hidden">
+                        <button onclick="toggleMobileMenu()" class="w-10 h-10 flex items-center justify-center text-slate-700">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="relative h-[620px] flex items-center bg-cover bg-center" style="background-image: url('assets/images/hero-bg.jpg')">
+        <div class="hero-overlay absolute inset-0"></div>
+        
+        <div class="max-w-screen-2xl mx-auto px-6 relative z-10">
+            <div class="max-w-2xl">
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 backdrop-blur-sm text-white text-xs font-medium mb-6">
+                    <div class="w-2 h-2 bg-emerald-400 rounded-full mr-2 animate-pulse"></div>
+                    <span>Trusted by 4,800+ clinical professionals</span>
+                </div>
+                
+                <h1 class="text-white text-6xl md:text-6xl font-extrabold leading-[1.05] tracking-tighter mb-4">
+                    Elevate your clinical<br>research career.
+                </h1>
+                
+                <p class="max-w-md text-lg text-white/90 mb-8">
+                    Professional certification programmes and skills training for life sciences professionals. 
+                    100% free tools. Premium experience.
+                </p>
+                
+                <div class="flex items-center gap-x-3">
+                    <a href="courses.html" 
+                       class="btn-gold px-8 py-[14px] font-bold text-base rounded-2xl inline-flex items-center gap-x-2 shadow-lg">
+                        <span>Explore Courses</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    
+                    <button onclick="watchVideoDemo()" 
+                            class="px-6 py-[14px] font-semibold text-white flex items-center gap-x-[9px] text-sm border border-white/50 hover:bg-white/10 transition-colors rounded-2xl px-5">
+                        <i class="fas fa-play-circle text-lg"></i> 
+                        <span>Watch 1:45 video</span>
+                    </button>
+                </div>
+                
+                <div class="mt-8 flex items-center gap-x-6 text-sm">
+                    <div class="flex -space-x-2">
+                        <img src="https://i.pravatar.cc/24?img=28" class="w-6 h-6 border border-white rounded-full ring-1 ring-offset-1 ring-offset-transparent ring-white/40">
+                        <img src="https://i.pravatar.cc/24?img=47" class="w-6 h-6 border border-white rounded-full ring-1 ring-offset-1 ring-offset-transparent ring-white/40">
+                        <img src="https://i.pravatar.cc/24?img=32" class="w-6 h-6 border border-white rounded-full ring-1 ring-offset-1 ring-offset-transparent ring-white/40">
+                    </div>
+                    <div class="text-white/80 text-xs font-medium">
+                        Joined this month: <span class="font-bold text-white">312</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-8 right-6 hidden xl:flex items-center bg-white/95 px-4 py-3 rounded-2xl shadow-xl text-xs">
+            <div class="flex items-center">
+                <div>
+                    <div class="flex items-center">
+                        <div class="text-emerald-500"><i class="fas fa-check-circle"></i></div>
+                        <span class="ml-2 font-semibold text-sm text-[#0F2744]">Rated 4.9/5</span>
+                    </div>
+                    <span class="text-xs text-slate-600">by 1,240 learners</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Trust Bar -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-4">
+        <div class="flex flex-wrap items-center justify-center gap-x-9 gap-y-3 opacity-75">
+            <div class="flex items-center text-xs font-medium">
+                <span class="font-bold text-[#0F2744]">Featured in</span>
+            </div>
+            <div class="flex items-center gap-x-7 text-xs font-semibold">
+                <div>ISCR</div>
+                <div class="text-slate-400">•</div>
+                <div>PharmaVoice</div>
+                <div class="text-slate-400">•</div>
+                <div>Clinical Research India</div>
+                <div class="text-slate-400">•</div>
+                <div>BioSpectrum</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Stats -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-4 pb-9">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white border p-5 rounded-3xl flex items-center gap-x-4">
+                <div>
+                    <div class="text-4xl font-extrabold stat-number">4,872</div>
+                    <div class="text-xs font-semibold text-slate-500 tracking-wider">LEARNERS ENROLLED</div>
+                </div>
+            </div>
+            <div class="bg-white border p-5 rounded-3xl flex items-center gap-x-4">
+                <div>
+                    <div class="text-4xl font-extrabold stat-number">58</div>
+                    <div class="text-xs font-semibold text-slate-500 tracking-wider">COURSES LIVE</div>
+                </div>
+            </div>
+            <div class="bg-white border p-5 rounded-3xl flex items-center gap-x-4">
+                <div>
+                    <div class="text-4xl font-extrabold stat-number">182</div>
+                    <div class="text-xs font-semibold text-slate-500 tracking-wider">CERTIFICATES ISSUED</div>
+                </div>
+            </div>
+            <div class="bg-white border p-5 rounded-3xl flex items-center gap-x-4">
+                <div>
+                    <div class="text-4xl font-extrabold stat-number">94%</div>
+                    <div class="text-xs font-semibold text-slate-500 tracking-wider">COMPLETION RATE</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Featured Courses -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-7">
+        <div class="flex items-end justify-between mb-6">
+            <div>
+                <span class="px-3 py-1 bg-amber-100 text-amber-700 text-xs font-bold tracking-wider px-3.5 py-1.5 rounded-full">MOST POPULAR</span>
+                <h2 class="section-header mt-1">Featured Courses</h2>
+            </div>
+            <a href="courses.html" class="hidden md:flex items-center gap-x-2 text-sm font-bold text-[#0F2744]">
+                View all courses <i class="fas fa-chevron-right ml-1"></i>
+            </a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            
+            <!-- Course 1: Free -->
+            <div class="course-card bg-white border border-slate-200 rounded-3xl overflow-hidden premium-shadow">
+                <div class="relative">
+                    <img src="assets/images/course-intro.jpg" class="w-full h-44 object-cover" alt="Introduction to Clinical Research">
+                    <div class="absolute top-3 left-3 px-3 py-1 bg-emerald-600 text-white text-xs font-extrabold tracking-wider rounded-full flex items-center gap-x-1">
+                        <i class="fas fa-check-double text-xs"></i> 
+                        <span>FREE</span>
+                    </div>
+                    <div class="absolute top-3 right-3 bg-white px-2.5 py-0.5 rounded-full shadow-sm text-xs font-bold flex items-center">
+                        <span class="text-emerald-600">4.9</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-4 pb-5">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-extrabold px-2 py-[1px] bg-emerald-100 text-emerald-700 rounded">BEGINNER</span>
+                        <span class="text-xs font-medium text-slate-400">8 weeks • Self-paced</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl leading-tight text-[#0F2744]">Introduction to Clinical Research</h3>
+                    <div class="flex items-center gap-x-2 mt-2">
+                        <div class="flex items-center">
+                            <img src="assets/images/instructor.jpg" class="w-5 h-5 rounded-full border object-cover" alt="">
+                            <span class="text-xs ml-1.5 font-semibold">Dr. Ananya Rao</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex items-center justify-between">
+                        <div>
+                            <span class="font-extrabold text-xl">FREE</span>
+                        </div>
+                        <a href="course-detail.html?id=1" 
+                           class="px-5 py-2.5 rounded-2xl bg-emerald-600 text-white text-xs font-extrabold hover:bg-emerald-700 transition-colors flex items-center justify-center gap-x-1.5">
+                            <span>Enrol Free</span>
+                        </a>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mt-3 text-[10.5px]">
+                        <div class="flex items-center text-slate-500">
+                            <i class="fas fa-users mr-1"></i> 
+                            <span class="font-medium">3,280 enrolled</span>
+                        </div>
+                        <div>
+                            <span class="font-semibold text-emerald-700">96% completed</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Course 2: Paid -->
+            <div class="course-card bg-white border border-slate-200 rounded-3xl overflow-hidden premium-shadow">
+                <div class="relative">
+                    <img src="assets/images/course-clinical.jpg" class="w-full h-44 object-cover" alt="Clinical Trial Management">
+                    <div class="absolute top-3 left-3 px-3 py-1 bg-[#C9A34E] text-white text-xs font-extrabold tracking-wider rounded-full">
+                        CERTIFIED
+                    </div>
+                    <div class="absolute top-3 right-3 bg-white px-2.5 py-0.5 rounded-full shadow-sm text-xs font-bold flex items-center">
+                        <span class="text-emerald-600">4.8</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-4 pb-5">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-extrabold px-2 py-[1px] bg-amber-100 text-amber-700 rounded">INTERMEDIATE</span>
+                        <span class="text-xs font-medium text-slate-400">6 weeks • 3 live sessions</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl leading-tight text-[#0F2744]">Clinical Trial Management</h3>
+                    
+                    <div class="flex items-center gap-x-2 mt-2">
+                        <div class="flex items-center">
+                            <img src="assets/images/instructor.jpg" class="w-5 h-5 rounded-full border object-cover" alt="">
+                            <span class="text-xs ml-1.5 font-semibold">Dr. Vikram Sharma</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex items-center justify-between">
+                        <div>
+                            <div class="flex items-baseline">
+                                <span class="font-extrabold text-2xl">₹4,999</span>
+                                <span class="text-xs text-slate-400 ml-1">/ $59 USD</span>
+                            </div>
+                        </div>
+                        
+                        <a href="course-detail.html?id=2" 
+                           class="px-5 py-[10px] rounded-2xl bg-[#0F2744] hover:bg-[#1a3859] transition-colors text-white text-xs font-extrabold flex items-center justify-center px-6">
+                            <span>Enrol Now</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-3 flex justify-between items-center text-[10.5px]">
+                        <div class="flex items-center text-slate-500">
+                            <i class="fas fa-users mr-1"></i> 
+                            <span class="font-medium">1,129 enrolled</span>
+                        </div>
+                        <div class="font-medium text-emerald-700">88% completed</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Course 3 -->
+            <div class="course-card bg-white border border-slate-200 rounded-3xl overflow-hidden premium-shadow">
+                <div class="relative">
+                    <img src="assets/images/course-clinical.jpg" class="w-full h-44 object-cover" alt="Good Clinical Practice">
+                    <div class="absolute top-3 left-3 px-3 py-1 bg-[#C9A34E] text-white text-xs font-extrabold tracking-wider rounded-full">
+                        CERTIFIED
+                    </div>
+                    <div class="absolute top-3 right-3 bg-white px-2.5 py-0.5 rounded-full shadow-sm text-xs font-bold flex items-center">
+                        <span class="text-emerald-600">4.9</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-4 pb-5">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-extrabold px-2 py-[1px] bg-amber-100 text-amber-700 rounded">ALL LEVELS</span>
+                        <span class="text-xs font-medium text-slate-400">4 weeks</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl leading-tight text-[#0F2744]">Good Clinical Practice (GCP) Essentials</h3>
+                    <div class="flex items-center gap-x-2 mt-2">
+                        <div class="flex items-center">
+                            <img src="assets/images/instructor.jpg" class="w-5 h-5 rounded-full border object-cover" alt="">
+                            <span class="text-xs ml-1.5 font-semibold">Prof. Meera Iyer</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex items-center justify-between">
+                        <div>
+                            <div class="flex items-baseline">
+                                <span class="font-extrabold text-2xl">₹2,999</span>
+                            </div>
+                        </div>
+                        <a href="course-detail.html?id=3" 
+                           class="px-5 py-[10px] rounded-2xl bg-[#0F2744] hover:bg-[#1a3859] transition-colors text-white text-xs font-extrabold flex items-center justify-center px-6">
+                            <span>Enrol Now</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-3 flex justify-between items-center text-[10.5px]">
+                        <div class="flex items-center text-slate-500">
+                            <i class="fas fa-users mr-1"></i> 
+                            <span class="font-medium">2,461 enrolled</span>
+                        </div>
+                        <div class="font-medium text-emerald-700">91% completed</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="course-card bg-white border border-slate-200 rounded-3xl overflow-hidden premium-shadow">
+                <div class="relative">
+                    <img src="assets/images/course-intro.jpg" class="w-full h-44 object-cover" alt="Regulatory Affairs">
+                    <div class="absolute top-3 left-3 px-3 py-1 bg-[#C9A34E] text-white text-xs font-extrabold tracking-wider rounded-full">
+                        CERTIFIED
+                    </div>
+                    <div class="absolute top-3 right-3 bg-white px-2.5 py-0.5 rounded-full shadow-sm text-xs font-bold flex items-center">
+                        <span class="text-emerald-600">4.7</span>
+                    </div>
+                </div>
+                <div class="px-4 pt-4 pb-5">
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-xs font-extrabold px-2 py-[1px] bg-amber-100 text-amber-700 rounded">INTERMEDIATE</span>
+                        <span class="text-xs font-medium text-slate-400">5 weeks</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl leading-tight text-[#0F2744]">Regulatory Affairs in India</h3>
+                    <div class="flex items-center gap-x-2 mt-2">
+                        <div class="flex items-center">
+                            <img src="assets/images/instructor.jpg" class="w-5 h-5 rounded-full border object-cover" alt="">
+                            <span class="text-xs ml-1.5 font-semibold">Dr. Sanjay Malhotra</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 flex items-center justify-between">
+                        <div>
+                            <div class="flex items-baseline">
+                                <span class="font-extrabold text-2xl">₹3,499</span>
+                            </div>
+                        </div>
+                        <a href="course-detail.html?id=4" 
+                           class="px-5 py-[10px] rounded-2xl bg-[#0F2744] hover:bg-[#1a3859] transition-colors text-white text-xs font-extrabold flex items-center justify-center px-6">
+                            <span>Enrol Now</span>
+                        </a>
+                    </div>
+                    
+                    <div class="mt-3 flex justify-between items-center text-[10.5px]">
+                        <div class="flex items-center text-slate-500">
+                            <i class="fas fa-users mr-1"></i> 
+                            <span class="font-medium">774 enrolled</span>
+                        </div>
+                        <div class="font-medium text-emerald-700">79% completed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex justify-center mt-7">
+            <a href="courses.html" class="px-6 py-3 flex items-center gap-2 text-sm font-semibold text-[#0F2744] border border-slate-300 hover:bg-slate-50 px-5 rounded-2xl">
+                Browse full course catalogue <i class="fas fa-arrow-right ml-2"></i>
+            </a>
+        </div>
+    </div>
+    
+    <!-- Upcoming Webinars / Events -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-6 bg-slate-50">
+        <div class="flex items-end justify-between mb-5 px-1">
+            <div>
+                <h2 class="section-header text-2xl">Upcoming Live Sessions</h2>
+                <p class="text-sm text-slate-500">Join live webinars with industry experts</p>
+            </div>
+            <a href="events.html" class="hidden md:flex items-center text-xs font-bold text-[#0F2744]">View full calendar <i class="fas fa-calendar ml-1.5"></i></a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Webinar 1 -->
+            <div class="bg-white border rounded-3xl px-5 py-4 flex flex-col">
+                <div class="flex justify-between">
+                    <div>
+                        <span class="px-3 py-0.5 bg-emerald-100 text-emerald-700 text-xs font-bold rounded">LIVE</span>
+                    </div>
+                    <div class="text-xs text-right">
+                        <span class="font-bold">Feb 26</span><br>
+                        <span class="text-xs text-slate-500">11:00 AM IST</span>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <h4 class="font-extrabold">Navigating CDSCO Submissions in 2026</h4>
+                    <div class="mt-1 text-xs flex items-center text-slate-500">
+                        <span>Dr. Priya Menon, Former CDSCO Advisor</span>
+                    </div>
+                </div>
+                <div class="mt-auto pt-4 flex items-center justify-between">
+                    <div class="text-xs">
+                        <span class="font-semibold">1,244</span> registered
+                    </div>
+                    <button onclick="registerForEvent(1)" 
+                            class="px-4 py-1 text-xs rounded-2xl font-extrabold bg-emerald-700 text-white text-center px-5">
+                        Register
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white border rounded-3xl px-5 py-4 flex flex-col">
+                <div class="flex justify-between">
+                    <div>
+                        <span class="px-3 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded">WEBINAR</span>
+                    </div>
+                    <div class="text-xs text-right">
+                        <span class="font-bold">Mar 4</span><br>
+                        <span class="text-xs text-slate-500">3:00 PM IST</span>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <h4 class="font-extrabold">Advanced Data Management in Clinical Trials</h4>
+                    <div class="mt-1 text-xs flex items-center text-slate-500">
+                        <span>Dr. Vikram Sharma</span>
+                    </div>
+                </div>
+                <div class="mt-auto pt-4 flex items-center justify-between">
+                    <div class="text-xs">
+                        <span class="font-semibold">876</span> registered
+                    </div>
+                    <button onclick="registerForEvent(2)" 
+                            class="px-4 py-1 text-xs rounded-2xl font-extrabold bg-[#0F2744] text-white text-center px-5">
+                        Register
+                    </button>
+                </div>
+            </div>
+            
+            <div class="bg-white border rounded-3xl px-5 py-4 flex flex-col">
+                <div class="flex justify-between">
+                    <div>
+                        <span class="px-3 py-0.5 bg-amber-100 text-amber-700 text-xs font-bold rounded">WORKSHOP</span>
+                    </div>
+                    <div class="text-xs text-right">
+                        <span class="font-bold">Mar 12</span><br>
+                        <span class="text-xs text-slate-500">10:00 AM IST</span>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <h4 class="font-extrabold">Hands-on GCP Compliance Workshop</h4>
+                    <div class="mt-1 text-xs flex items-center text-slate-500">
+                        <span>Prof. Meera Iyer</span>
+                    </div>
+                </div>
+                <div class="mt-auto pt-4 flex items-center justify-between">
+                    <div class="text-xs">
+                        <span class="font-semibold">512</span> registered
+                    </div>
+                    <button onclick="registerForEvent(3)" 
+                            class="px-4 py-1 text-xs rounded-2xl font-extrabold bg-[#0F2744] text-white text-center px-5">
+                        Register
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Testimonials -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-9">
+        <div class="mb-7">
+            <h2 class="section-header text-2xl">What our learners say</h2>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-5">
+            <div class="bg-white border p-5 rounded-3xl">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/testimonial.jpg" class="w-11 h-11 object-cover rounded-full ring-2 ring-offset-2 ring-offset-white ring-slate-200" alt="">
+                    <div>
+                        <div class="font-extrabold">Dr. Ritu Patel</div>
+                        <div class="text-xs text-slate-500">Clinical Research Associate, Biocon</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm leading-relaxed">
+                    "The GCP Essentials course transformed how I approach trials. The certificate helped me secure a promotion. Excellent content and support."
+                </div>
+                <div class="flex items-center mt-3 text-amber-400 text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+            </div>
+            
+            <div class="bg-white border p-5 rounded-3xl">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/44?img=40" class="w-11 h-11 object-cover rounded-full ring-2 ring-offset-2 ring-offset-white ring-slate-200" alt="">
+                    <div>
+                        <div class="font-extrabold">Dr. Arjun Menon</div>
+                        <div class="text-xs text-slate-500">Research Manager, Novartis India</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm leading-relaxed">
+                    "The Clinical Trial Management course was highly practical. I loved the live sessions and the Q&amp;A with Dr. Sharma. Highly recommended for anyone in the field."
+                </div>
+                <div class="flex items-center mt-3 text-amber-400 text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+            
+            <div class="bg-white border p-5 rounded-3xl">
+                <div class="flex items-center gap-3">
+                    <img src="https://i.pravatar.cc/44?img=25" class="w-11 h-11 object-cover rounded-full ring-2 ring-offset-2 ring-offset-white ring-slate-200" alt="">
+                    <div>
+                        <div class="font-extrabold">Priya Kulkarni</div>
+                        <div class="text-xs text-slate-500">PhD Student, IIT Bombay</div>
+                    </div>
+                </div>
+                <div class="mt-4 text-sm leading-relaxed">
+                    "The free intro course was a fantastic starting point. It gave me the foundation I needed to enrol in the paid certification. The dashboard and progress tracking are very well designed."
+                </div>
+                <div class="flex items-center mt-3 text-amber-400 text-sm">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Why CCREST / Benefits -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-8 bg-[#0F2744] text-white rounded-[3rem]">
+        <div class="grid md:grid-cols-12 gap-x-5 items-center">
+            <div class="md:col-span-5 px-8 py-3">
+                <h2 class="text-3xl font-extrabold leading-tight">Built for professionals.<br>Designed for results.</h2>
+                <p class="mt-3 text-white/70">All courses are developed by practising clinical researchers with real-world expertise. We use only free and open-source tools, so our focus stays 100% on quality education.</p>
+                
+                <div class="mt-5">
+                    <button onclick="window.location.href='about.html'" class="px-5 py-3 bg-white text-[#0F2744] text-sm rounded-2xl font-bold flex items-center gap-2 hover:bg-slate-100">
+                        Learn more about CCREST
+                    </button>
+                </div>
+            </div>
+            
+            <div class="md:col-span-7 px-8 pt-6 md:pt-0">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-globe text-[#C9A34E]"></i>
+                            <span class="font-bold">Global recognition</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Certificates accepted across India and internationally.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-chalkboard-teacher text-[#C9A34E]"></i>
+                            <span class="font-bold">Expert instructors</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Active researchers and regulatory experts.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-award text-[#C9A34E]"></i>
+                            <span class="font-bold">Industry certificates</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Verified and branded with learner name.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-laptop text-[#C9A34E]"></i>
+                            <span class="font-bold">Flexible learning</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Self-paced + live sessions.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-headset text-[#C9A34E]"></i>
+                            <span class="font-bold">Dedicated support</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Q&amp;A forum + direct instructor access.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md px-4 py-[13px] rounded-2xl">
+                        <div class="flex items-center gap-x-2">
+                            <i class="fas fa-shield-alt text-[#C9A34E]"></i>
+                            <span class="font-bold">Premium protection</span>
+                        </div>
+                        <p class="text-xs mt-1.5 text-white/75">Secure content access &amp; watermarking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CTA -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-8 pb-10">
+        <div class="flex flex-col md:flex-row bg-slate-50 border rounded-[2.5rem] px-8 py-8 items-center">
+            <div class="md:w-3/5">
+                <div class="font-extrabold text-3xl text-[#0F2744]">Ready to advance your career?</div>
+                <p class="text-sm mt-1 text-slate-600">Join 4,800+ professionals today. Free courses available instantly.</p>
+            </div>
+            <div class="md:w-2/5 mt-4 md:mt-0 flex md:justify-end">
+                <a href="courses.html" class="btn-gold px-7 py-3.5 font-extrabold text-base rounded-2xl px-8 inline-flex items-center justify-center">
+                    Start learning today
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-[#0F2744] text-white/80">
+        <div class="max-w-screen-2xl mx-auto px-6 pt-10 pb-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-y-8 text-sm">
+                <div>
+                    <div class="flex items-center">
+                        <img src="assets/images/logo.png" class="h-7 brightness-[1.4]" alt="">
+                        <span class="font-extrabold ml-2 text-lg text-white">CCREST</span>
+                    </div>
+                    <div class="text-xs mt-3 leading-snug">Center for Clinical Research<br>Education &amp; Skills Training</div>
+                    <div class="text-xs mt-3">Bengaluru, India</div>
+                </div>
+                
+                <div>
+                    <div class="font-semibold text-xs tracking-wider text-white mb-3">PLATFORM</div>
+                    <div class="space-y-[6px] text-xs">
+                        <div><a href="courses.html" class="hover:text-white">Courses</a></div>
+                        <div><a href="events.html" class="hover:text-white">Events</a></div>
+                        <div><a href="blog.html" class="hover:text-white">Blog</a></div>
+                        <div><a href="#" class="hover:text-white">Certificates</a></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="font-semibold text-xs tracking-wider text-white mb-3">RESOURCES</div>
+                    <div class="space-y-[6px] text-xs">
+                        <div><a href="#" class="hover:text-white">Free Resources</a></div>
+                        <div><a href="contact.html" class="hover:text-white">Support</a></div>
+                        <div><a href="#" class="hover:text-white">Learner Handbook</a></div>
+                        <div><a href="about.html" class="hover:text-white">About us</a></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <div class="font-semibold text-xs tracking-wider text-white mb-3">LEGAL</div>
+                    <div class="space-y-[6px] text-xs">
+                        <div><a href="#" class="hover:text-white">Privacy Policy</a></div>
+                        <div><a href="#" class="hover:text-white">Terms of Service</a></div>
+                        <div><a href="#" class="hover:text-white">Refund Policy</a></div>
+                        <div><a href="#" class="hover:text-white">Accessibility</a></div>
+                    </div>
+                </div>
+                
+                <div class="col-span-2 md:col-span-1">
+                    <div class="font-semibold text-xs tracking-wider text-white mb-3">CONNECT</div>
+                    <div class="flex items-center gap-x-4 text-lg">
+                        <i class="fab fa-linkedin-in cursor-pointer hover:text-white"></i>
+                        <i class="fab fa-twitter cursor-pointer hover:text-white"></i>
+                        <i class="fab fa-youtube cursor-pointer hover:text-white"></i>
+                    </div>
+                    
+                    <div class="mt-5">
+                        <div class="text-xs">© 2026 CCREST</div>
+                        <div class="text-xs mt-1">Built with 100% free tools</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" onclick="if (event.target.id === 'login-modal') hideLoginModal()" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[200]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-md mx-4 rounded-3xl overflow-hidden shadow-2xl">
+            <!-- Login Tabs -->
+            <div class="px-5 pt-5">
+                <div class="flex border-b">
+                    <div onclick="switchLoginTab('login')" id="tab-login" class="flex-1 text-center pb-3 font-extrabold border-b-2 border-[#0F2744] cursor-pointer">Login</div>
+                    <div onclick="switchLoginTab('register')" id="tab-register" class="flex-1 text-center pb-3 font-bold text-slate-500 cursor-pointer">Register</div>
+                </div>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="login-form" class="px-6 pt-6 pb-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Email Address</label>
+                        <input type="email" id="login-email" value="learner@demo.ccrest.in" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Password</label>
+                        <input type="password" id="login-password" value="demo123" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    
+                    <div class="flex items-center justify-between text-xs">
+                        <div class="flex items-center">
+                            <input type="checkbox" checked class="mr-1.5"> 
+                            <span class="text-xs">Remember me</span>
+                        </div>
+                        <div class="text-[#0F2744] font-medium text-xs cursor-pointer">Forgot password?</div>
+                    </div>
+                    
+                    <button onclick="performLogin()" class="w-full py-[12px] bg-[#0F2744] hover:bg-[#1a3859] text-white font-extrabold rounded-2xl text-sm mt-1">
+                        Sign In
+                    </button>
+                    
+                    <div class="text-center text-xs pt-1">
+                        <span class="text-slate-500">Or sign in with:</span>
+                        <div class="flex items-center justify-center gap-x-3 mt-3">
+                            <button class="border px-3 py-1.5 text-xs rounded-2xl flex items-center gap-1.5" onclick="quickLogin('learner')">
+                                <i class="fab fa-google"></i> <span>Google</span>
+                            </button>
+                            <button class="border px-3 py-1.5 text-xs rounded-2xl flex items-center gap-1.5" onclick="quickLogin('teacher')">
+                                <i class="fas fa-user-tie"></i> <span>Teacher</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="register-form" class="px-6 pt-1 pb-6 hidden">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold mb-1 text-slate-600">First Name</label>
+                            <input type="text" value="Aarav" class="w-full px-4 py-[9px] border rounded-2xl text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold mb-1 text-slate-600">Last Name</label>
+                            <input type="text" value="Mehta" class="w-full px-4 py-[9px] border rounded-2xl text-sm">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Email Address</label>
+                        <input type="email" value="newlearner@demo.ccrest.in" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Create Password</label>
+                        <input type="password" value="demo123" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    
+                    <div class="flex items-center text-xs">
+                        <input type="checkbox" class="mr-1.5" checked>
+                        <span class="text-xs">I agree to the <span class="text-[#0F2744]">Terms</span> and <span class="text-[#0F2744]">Privacy Policy</span></span>
+                    </div>
+                    
+                    <button onclick="performRegister()" class="w-full py-[12px] bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold rounded-2xl text-sm">
+                        Create Free Account
+                    </button>
+                    
+                    <div class="text-center text-xs">
+                        Already have an account? <span onclick="switchLoginTab('login')" class="font-bold text-[#0F2744] cursor-pointer">Sign in</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind script
+        function initializeTailwind() {
+            document.documentElement.style.setProperty('--accent-gold', '#C9A34E');
+            
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            'premium': ['Inter', 'system-ui', 'sans-serif']
+                        }
+                    }
+                }
+            };
+        }
+        
+        let currentUser = null;
+        
+        function checkLoginStatus() {
+            const savedUser = localStorage.getItem('ccrest_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateNavForUser();
+            }
+        }
+        
+        function updateNavForUser() {
+            const loginBtn = document.querySelector('button[onclick="showLoginModal()"]');
+            if (loginBtn && currentUser) {
+                loginBtn.innerHTML = `
+                    <div class="flex items-center gap-x-1.5">
+                        <img src="https://i.pravatar.cc/22?img=${currentUser.role === 'teacher' ? '40' : '28'}" class="w-5 h-5 rounded-full">
+                        <span class="font-medium text-sm">${currentUser.name.split(' ')[0]}</span>
+                    </div>
+                `;
+                loginBtn.onclick = showUserMenu;
+            }
+        }
+        
+        function showUserMenu() {
+            const menu = document.createElement('div');
+            menu.className = `absolute right-6 top-[70px] bg-white shadow-xl border w-56 rounded-2xl py-1 z-[220]`;
+            menu.innerHTML = `
+                <div class="px-4 py-3 border-b">
+                    <div class="font-bold">${currentUser.name}</div>
+                    <div class="text-xs text-slate-500">${currentUser.email}</div>
+                    <div class="text-xs mt-1 font-medium px-2 py-0.5 bg-slate-100 rounded w-fit">${currentUser.role.toUpperCase()}</div>
+                </div>
+                
+                <div class="py-1 text-sm">
+                    ${currentUser.role === 'learner' ? `
+                    <a href="dashboard-learner.html" class="flex px-4 py-[7px] hover:bg-slate-50 items-center gap-2 px-4 text-sm"><i class="fas fa-tachometer-alt w-4"></i> <span>Learner Dashboard</span></a>` : ''}
+                    
+                    ${currentUser.role === 'teacher' ? `
+                    <a href="dashboard-teacher.html" class="flex px-4 py-[7px] hover:bg-slate-50 items-center gap-2 px-4 text-sm"><i class="fas fa-chalkboard-teacher w-4"></i> <span>Teacher Dashboard</span></a>` : ''}
+                    
+                    ${currentUser.role === 'admin' ? `
+                    <a href="dashboard-admin.html" class="flex px-4 py-[7px] hover:bg-slate-50 items-center gap-2 px-4 text-sm"><i class="fas fa-cog w-4"></i> <span>Admin Dashboard</span></a>` : ''}
+                    
+                    <a href="courses.html" class="flex px-4 py-[7px] hover:bg-slate-50 items-center gap-2 px-4 text-sm"><i class="fas fa-graduation-cap w-4"></i> <span>Browse Courses</span></a>
+                    
+                    <div class="px-4 py-[5px] text-xs border-t mt-1">
+                        <div onclick="logoutUser()" class="flex px-1 py-1 cursor-pointer text-red-600 items-center gap-2 text-sm">
+                            <i class="fas fa-sign-out-alt"></i> <span>Logout</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Remove any existing menus
+            document.querySelectorAll('.user-menu-popup').forEach(el => el.remove());
+            menu.classList.add('user-menu-popup');
+            document.body.appendChild(menu);
+            
+            // Close on outside click
+            setTimeout(() => {
+                document.addEventListener('click', function handler(e) {
+                    if (!menu.contains(e.target)) {
+                        menu.remove();
+                        document.removeEventListener('click', handler);
+                    }
+                }, { once: true });
+            }, 10);
+        }
+        
+        function logoutUser() {
+            localStorage.removeItem('ccrest_user');
+            currentUser = null;
+            window.location.reload();
+        }
+        
+        function showLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+            switchLoginTab('login');
+        }
+        
+        function hideLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function switchLoginTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+            
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                tabLogin.classList.add('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabLogin.classList.remove('text-slate-500');
+                tabRegister.classList.remove('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabRegister.classList.add('text-slate-500');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                tabRegister.classList.add('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabRegister.classList.remove('text-slate-500');
+                tabLogin.classList.remove('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabLogin.classList.add('text-slate-500');
+            }
+        }
+        
+        function performLogin() {
+            const email = document.getElementById('login-email').value || 'learner@demo.ccrest.in';
+            let role = 'learner';
+            let name = 'Aarav Mehta';
+            
+            if (email.includes('teacher')) {
+                role = 'teacher';
+                name = 'Dr. Vikram Sharma';
+            } else if (email.includes('admin') || email.includes('ccrest.in')) {
+                role = 'admin';
+                name = 'CCREST Admin';
+            } else if (email.includes('learner')) {
+                role = 'learner';
+                name = 'Aarav Mehta';
+            }
+            
+            currentUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                role: role,
+                joined: '2025-11-03'
+            };
+            
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            updateNavForUser();
+            
+            // Redirect based on role
+            setTimeout(() => {
+                if (role === 'learner') window.location.href = 'dashboard-learner.html';
+                else if (role === 'teacher') window.location.href = 'dashboard-teacher.html';
+                else if (role === 'admin') window.location.href = 'dashboard-admin.html';
+            }, 650);
+        }
+        
+        function performRegister() {
+            const email = document.getElementById('register-form').querySelector('input[type="email"]').value || 'newlearner@demo.ccrest.in';
+            
+            currentUser = {
+                id: Date.now(),
+                name: 'Aarav Mehta',
+                email: email,
+                role: 'learner',
+                joined: new Date().toISOString().split('T')[0]
+            };
+            
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            updateNavForUser();
+            
+            // Show welcome toast
+            showToast('Welcome to CCREST! Your account is ready.');
+            
+            setTimeout(() => {
+                window.location.href = 'courses.html';
+            }, 1100);
+        }
+        
+        function quickLogin(type) {
+            let userData;
+            
+            if (type === 'learner') {
+                userData = { id: 101, name: 'Aarav Mehta', email: 'learner@demo.ccrest.in', role: 'learner', joined: '2025-11-03' };
+            } else if (type === 'teacher') {
+                userData = { id: 202, name: 'Dr. Vikram Sharma', email: 'teacher@demo.ccrest.in', role: 'teacher', joined: '2024-05-12' };
+            }
+            
+            currentUser = userData;
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            updateNavForUser();
+            
+            setTimeout(() => {
+                if (type === 'learner') window.location.href = 'dashboard-learner.html';
+                else if (type === 'teacher') window.location.href = 'dashboard-teacher.html';
+            }, 300);
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 px-5 py-3 bg-[#0F2744] text-white rounded-2xl shadow-lg text-sm flex items-center gap-x-2 max-w-xs z-[300]`;
+            toast.innerHTML = `
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-emerald-300 mr-2"></i> 
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.transitionDuration = '200ms';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 250);
+            }, 2800);
+        }
+        
+        function watchVideoDemo() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[210]`;
+            modal.innerHTML = `
+                <div class="w-full max-w-2xl mx-4 bg-white rounded-3xl overflow-hidden">
+                    <div class="px-5 pt-4 pb-1 flex justify-between items-center bg-slate-900 text-white">
+                        <div class="font-semibold px-1">CCREST Platform Overview (1:45)</div>
+                        <div onclick="this.closest('.fixed').remove()" class="cursor-pointer px-2 text-xl leading-none">&times;</div>
+                    </div>
+                    
+                    <div class="p-1 bg-slate-800">
+                        <div class="aspect-video bg-black relative">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9wg9cQ?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            
+                            <div class="absolute bottom-2 left-2 px-3 py-1 text-xs bg-black/60 text-white rounded flex items-center">
+                                <span class="text-emerald-400">•</span> <span class="ml-1.5 text-xs font-medium">Demo video</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-5 py-4 flex justify-between bg-white items-center text-xs">
+                        <div>
+                            <span class="font-bold">This is a demo video.</span> <span class="text-slate-500">In production, this would embed a real CCREST introductory video hosted on YouTube (unlisted).</span>
+                        </div>
+                        <button onclick="this.closest('.fixed').remove()" class="px-4 py-2 text-xs font-bold bg-[#0F2744] rounded-xl text-white">Close</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function registerForEvent(eventId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            const btns = event.target;
+            const originalText = (btns && btns.innerHTML) ? btns.innerHTML : '';
+            
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 flex items-center justify-center bg-black/50 z-[210]`;
+            modal.innerHTML = `
+                <div onclick="event.target.remove()" class="w-full max-w-md mx-4 bg-white rounded-3xl p-6">
+                    <div class="text-center">
+                        <i class="fas fa-calendar-check text-3xl text-emerald-600"></i>
+                        <h4 class="font-extrabold mt-4">Registration successful!</h4>
+                        <p class="mt-1 text-sm">You have been registered for this webinar.</p>
+                        
+                        <div class="mt-5 px-3 py-4 bg-slate-50 rounded-2xl text-xs">
+                            <div class="flex justify-between text-slate-600">
+                                <div>Meeting link:</div>
+                                <div class="font-bold text-emerald-700">Will be sent via email</div>
+                            </div>
+                            <div class="mt-1 text-xs">A confirmation email has been sent to ${currentUser.email}</div>
+                        </div>
+                        
+                        <button onclick="this.closest('.fixed').remove()" class="mt-4 w-full bg-[#0F2744] text-white py-2 rounded-2xl font-extrabold text-sm">Close</button>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Also simulate adding to dashboard if learner
+            if (currentUser.role === 'learner') {
+                let enrolledEvents = JSON.parse(localStorage.getItem('ccrest_enrolled_events') || '[]');
+                if (!enrolledEvents.includes(eventId)) enrolledEvents.push(eventId);
+                localStorage.setItem('ccrest_enrolled_events', JSON.stringify(enrolledEvents));
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const nav = document.createElement('div');
+            nav.className = `fixed inset-0 z-[190] md:hidden bg-black/30`;
+            nav.innerHTML = `
+                <div onclick="event.target.remove()" class="w-3/4 bg-white h-full ml-auto px-6 py-6">
+                    <div class="flex justify-between mb-6 px-1">
+                        <div class="flex items-center">
+                            <img src="assets/images/logo.png" class="h-7" alt="">
+                            <span class="font-extrabold ml-2 tracking-tighter">CCREST</span>
+                        </div>
+                        <div class="text-2xl leading-none cursor-pointer">&times;</div>
+                    </div>
+                    
+                    <div class="flex flex-col text-sm">
+                        <a href="index.html" class="py-3 px-2 border-b">Home</a>
+                        <a href="courses.html" class="py-3 px-2 border-b">Courses</a>
+                        <a href="events.html" class="py-3 px-2 border-b">Events &amp; Webinars</a>
+                        <a href="about.html" class="py-3 px-2 border-b">About Us</a>
+                        <a href="blog.html" class="py-3 px-2 border-b">Blog</a>
+                        <a href="contact.html" class="py-3 px-2 border-b">Contact</a>
+                        
+                        <div class="pt-5 px-2">
+                            <button onclick="showLoginModal(); this.closest('.fixed').remove();" class="w-full py-3 text-center bg-[#0F2744] text-white rounded-2xl font-extrabold text-sm">Login / Register</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(nav);
+        }
+        
+        // Disable right-click globally (simulates WP Content Copy Protection)
+        function enableContentProtection() {
+            document.addEventListener('contextmenu', function(e) {
+                if (!e.target.closest('a') && !e.target.closest('button')) {
+                    e.preventDefault();
+                    const toast = document.createElement('div');
+                    toast.style.cssText = 'position:fixed;bottom:16px;right:16px;background:#0F2744;color:white;font-size:0.75rem;padding:6px 14px;border-radius:9999px;';
+                    toast.innerHTML = `Content protected. <span class="font-bold">Right-click disabled.</span>`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 1400);
+                }
+            });
+            
+            // Also disable copy on body for protected pages (but allow on inputs)
+            document.addEventListener('copy', function(e) {
+                const active = document.activeElement;
+                if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+                
+                const sel = window.getSelection();
+                if (sel && sel.toString().length > 15) {
+                    e.preventDefault();
+                    const toast = document.createElement('div');
+                    toast.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translate(-50%,0);background:#0F2744;color:white;font-size:0.75rem;padding:6px 14px;border-radius:9999px;';
+                    toast.innerHTML = `Copying of content is disabled.`;
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 1500);
+                }
+            });
+            
+            // Add watermark hint on console (for devs)
+            console.log('%c[CCREST] Content protection active: right-click & copy disabled (simulated)', 'color:#64748b;font-size:9px');
+        }
+        
+        function initializeEverything() {
+            initializeTailwind();
+            checkLoginStatus();
+            enableContentProtection();
+            
+            // Optional: show quick demo message
+            setTimeout(() => {
+                const urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.get('demo') === 'true') {
+                    showToast('Demo mode active. All features fully functional.');
+                }
+            }, 2200);
+            
+            // Keyboard shortcut hint (dev only)
+            document.addEventListener('keydown', function(e) {
+                if (e.metaKey && e.key === "/") {
+                    e.preventDefault();
+                    showLoginModal();
+                }
+            });
+            
+            // Mark the homepage as loaded
+            console.log('%c[CCREST] Homepage initialized successfully. (Static simulation of free-stack WordPress + Tutor LMS + Elementor)', 'color:#64748b;font-size:9.5px');
+        }
+        
+        // Boot up
+        window.onload = initializeEverything;
+        
+        // Global helper: simulate enrolment for demo (can be called anywhere)
+        window.simulateEnrol = function(courseId) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            const enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+            if (!enrolled.includes(courseId)) enrolled.push(courseId);
+            localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolled));
+            
+            showToast('Successfully enrolled! Redirecting to course...');
+            
+            setTimeout(() => {
+                window.location.href = `course-detail.html?id=${courseId}`;
+            }, 1500);
+        }
+    </script>
+</body>
+</html>

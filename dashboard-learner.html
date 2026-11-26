@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learner Dashboard — CCREST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@500;600&amp;display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .navy { color: #0F2744; }
+        .dashboard-header { font-size: 1.65rem; line-height: 1.9rem; font-weight: 700; }
+        .card { transition: all .2s ease; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Top bar -->
+    <div class="bg-[#0F2744] py-2 text-white text-xs">
+        <div class="max-w-screen-2xl mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="font-medium">CCREST Learner Dashboard</span>
+            </div>
+            <div class="flex items-center gap-x-4">
+                <div class="flex items-center">
+                    <div class="px-2 py-1 bg-white/10 text-xs rounded px-3">Free tier active</div>
+                </div>
+                <div onclick="logout()" class="cursor-pointer flex items-center text-xs">
+                    <i class="fas fa-sign-out-alt mr-1.5"></i> <span>Logout</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-screen-2xl mx-auto">
+        <!-- Header -->
+        <div class="px-6 pt-6 flex items-center justify-between">
+            <div>
+                <div class="flex items-center gap-x-3">
+                    <img src="assets/images/logo.png" class="h-8" alt="">
+                    <div>
+                        <span class="font-extrabold text-3xl tracking-tighter text-[#0F2744]">CCREST</span>
+                    </div>
+                </div>
+                <div id="welcome-text" class="text-lg mt-1 font-extrabold text-[#0F2744]"></div>
+            </div>
+            
+            <div class="flex items-center gap-x-2">
+                <a href="courses.html" class="px-4 text-xs py-[9px] font-bold flex items-center bg-white border text-[#0F2744] rounded-2xl px-4 text-sm">Browse more courses</a>
+                <div class="px-3 py-2 bg-white border flex items-center gap-2 rounded-2xl text-xs px-4">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                    <span class="font-semibold">Active</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Stats row -->
+        <div class="px-6 pt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white px-5 py-4 border rounded-3xl">
+                <div class="flex justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-500">ENROLLED COURSES</div>
+                        <div id="stat-enrolled" class="font-extrabold text-3xl">4</div>
+                    </div>
+                    <div><i class="fas fa-graduation-cap text-3xl text-emerald-400"></i></div>
+                </div>
+            </div>
+            <div class="bg-white px-5 py-4 border rounded-3xl">
+                <div class="flex justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-500">COURSES COMPLETED</div>
+                        <div id="stat-completed" class="font-extrabold text-3xl">2</div>
+                    </div>
+                    <div><i class="fas fa-award text-3xl text-amber-400"></i></div>
+                </div>
+            </div>
+            <div class="bg-white px-5 py-4 border rounded-3xl">
+                <div class="flex justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-500">OVERALL PROGRESS</div>
+                        <div class="font-extrabold text-3xl">71%</div>
+                    </div>
+                    <div><i class="fas fa-chart-line text-3xl text-emerald-400"></i></div>
+                </div>
+            </div>
+            <div class="bg-white px-5 py-4 border rounded-3xl">
+                <div class="flex justify-between">
+                    <div>
+                        <div class="text-xs font-bold text-slate-500">CERTIFICATES</div>
+                        <div id="stat-certificates" class="font-extrabold text-3xl">2</div>
+                    </div>
+                    <div><i class="fas fa-certificate text-3xl text-amber-400"></i></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 px-6 pt-6">
+            
+            <!-- Enrolled Courses -->
+            <div class="lg:col-span-7">
+                <div class="flex items-center justify-between mb-3 px-1">
+                    <div class="font-extrabold text-lg">My Enrolled Courses</div>
+                    <a href="courses.html" class="text-xs font-bold">View all</a>
+                </div>
+                
+                <div id="enrolled-courses" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="lg:col-span-5">
+                <!-- Announcements -->
+                <div class="mb-4">
+                    <div class="px-1 mb-2 font-extrabold">Announcements</div>
+                    <div class="bg-white border px-4 py-4 rounded-3xl text-sm">
+                        <div class="px-1">
+                            <div class="font-bold">New GCP module added</div>
+                            <div class="text-xs text-slate-500 mt-0.5">Dr. Ananya Rao • Today</div>
+                            <div class="text-xs mt-2">Check out the new lesson on ICH E6(R3) updates in your GCP course.</div>
+                        </div>
+                        
+                        <div class="mt-3 px-1 pt-2 border-t">
+                            <div class="font-bold">Webinar reminder</div>
+                            <div class="text-xs text-slate-500">Feb 26 • 11:00 AM IST</div>
+                            <div class="text-xs mt-1">Navigating CDSCO Submissions — join now.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Overview -->
+                <div class="bg-white border rounded-3xl px-5 py-5">
+                    <div class="font-extrabold px-1">Learning Progress</div>
+                    
+                    <div class="mt-4 px-1 space-y-[11px]">
+                        <div>
+                            <div class="flex justify-between text-xs">
+                                <span class="font-semibold">Introduction to Clinical Research</span>
+                                <span class="font-extrabold">100%</span>
+                            </div>
+                            <div class="mt-1.5 bg-slate-100 h-2 rounded-full"><div class="bg-emerald-500 h-2 rounded-full" style="width: 100%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs">
+                                <span class="font-semibold">Clinical Trial Management</span>
+                                <span class="font-extrabold">65%</span>
+                            </div>
+                            <div class="mt-1.5 bg-slate-100 h-2 rounded-full"><div class="bg-emerald-500 h-2 rounded-full" style="width: 65%"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs">
+                                <span class="font-semibold">GCP Essentials</span>
+                                <span class="font-extrabold">88%</span>
+                            </div>
+                            <div class="mt-1.5 bg-slate-100 h-2 rounded-full"><div class="bg-emerald-500 h-2 rounded-full" style="width: 88%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Certificates -->
+            <div class="lg:col-span-12 mt-2">
+                <div class="font-extrabold px-1 mb-2">My Certificates</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="certificates-grid">
+                    <!-- JS populated -->
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let currentUser = null;
+        
+        function checkUser() {
+            const saved = localStorage.getItem('ccrest_user');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+            } else {
+                // Auto-login demo learner
+                currentUser = { id: 101, name: "Aarav Mehta", email: "learner@demo.ccrest.in", role: "learner", joined: "2025-11-03" };
+                localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            }
+            
+            if (currentUser.role !== 'learner') {
+                window.location.href = 'index.html';
+            }
+            
+            document.getElementById('welcome-text').innerHTML = `Welcome back, ${currentUser.name.split(' ')[0]}!`;
+        }
+        
+        function renderEnrolledCourses() {
+            const container = document.getElementById('enrolled-courses');
+            const enrolledIds = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[1,2,3]');
+            
+            const allCourses = [
+                {id:1, title:"Introduction to Clinical Research", progress: 100, instructor:"Dr. Ananya Rao", thumbnail:"assets/images/course-intro.jpg", duration:"8 weeks"},
+                {id:2, title:"Clinical Trial Management", progress: 65, instructor:"Dr. Vikram Sharma", thumbnail:"assets/images/course-clinical.jpg", duration:"6 weeks"},
+                {id:3, title:"Good Clinical Practice (GCP) Essentials", progress: 88, instructor:"Prof. Meera Iyer", thumbnail:"assets/images/course-clinical.jpg", duration:"4 weeks"},
+                {id:5, title:"Clinical Data Management", progress: 42, instructor:"Dr. Ananya Rao", thumbnail:"assets/images/course-clinical.jpg", duration:"3 weeks"}
+            ];
+            
+            let html = '';
+            
+            enrolledIds.forEach(id => {
+                const course = allCourses.find(c => c.id === id);
+                if (!course) return;
+                
+                html += `
+                    <div onclick="window.location.href='course-detail.html?id=${course.id}'" class="bg-white border px-4 py-4 rounded-3xl cursor-pointer flex gap-x-3 card">
+                        <img src="${course.thumbnail}" class="w-12 h-12 object-cover rounded-2xl flex-shrink-0" alt="">
+                        
+                        <div class="flex-1 min-w-0">
+                            <div class="font-extrabold text-sm leading-tight">${course.title}</div>
+                            <div class="text-xs mt-0.5 text-slate-500">${course.instructor} • ${course.duration}</div>
+                            
+                            <div class="mt-3">
+                                <div class="flex justify-between text-xs font-bold">
+                                    <span>Progress</span>
+                                    <span>${course.progress}%</span>
+                                </div>
+                                <div class="mt-1 bg-emerald-100 h-[5px] rounded-full"><div class="h-[5px] bg-emerald-600 rounded-full" style="width: ${course.progress}%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || `<div class="text-sm text-slate-500 px-1">No courses enrolled yet. <a href="courses.html" class="font-bold">Browse courses</a></div>`;
+            
+            // Update stats
+            document.getElementById('stat-enrolled').innerHTML = enrolledIds.length;
+            
+            const completed = enrolledIds.filter(id => {
+                const c = allCourses.find(x => x.id === id);
+                return c && c.progress === 100;
+            }).length;
+            document.getElementById('stat-completed').innerHTML = completed;
+        }
+        
+        function renderCertificates() {
+            const container = document.getElementById('certificates-grid');
+            const enrolledIds = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[1,2,3]');
+            
+            const certs = [
+                {courseId: 1, title: "Introduction to Clinical Research", date: "2026-01-12", instructor: "Dr. Ananya Rao"},
+                {courseId: 3, title: "Good Clinical Practice (GCP) Essentials", date: "2026-02-04", instructor: "Prof. Meera Iyer"}
+            ];
+            
+            let html = '';
+            
+            certs.forEach(cert => {
+                if (!enrolledIds.includes(cert.courseId)) return;
+                
+                html += `
+                    <div class="bg-white border px-4 py-[13px] rounded-3xl flex items-center gap-x-3">
+                        <div class="flex-1">
+                            <div class="font-extrabold text-sm">${cert.title}</div>
+                            <div class="text-xs mt-px text-slate-500">Completed ${cert.date}</div>
+                            <div class="text-xs text-emerald-700 font-bold">${cert.instructor}</div>
+                        </div>
+                        <div>
+                            <button onclick="downloadCertificate(${cert.courseId}, '${cert.title}')" class="px-4 py-1 text-xs font-bold bg-emerald-700 text-white rounded-2xl px-3">Download</button>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html || `<div class="col-span-3 text-xs px-1">Complete a course to receive your certificate.</div>`;
+            
+            document.getElementById('stat-certificates').innerHTML = certs.length;
+        }
+        
+        function downloadCertificate(courseId, title) {
+            const link = document.createElement('a');
+            link.download = title.replace(/ /g, '-') + '-certificate.pdf';
+            
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#166534;color:white;padding:7px 15px;border-radius:9999px;font-size:0.75rem;';
+            toast.innerHTML = `Certificate for <strong>${title}</strong> downloaded (simulated).`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => toast.remove(), 2600);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ccrest_user');
+            window.location.href = 'index.html';
+        }
+        
+        function initDashboard() {
+            checkUser();
+            renderEnrolledCourses();
+            renderCertificates();
+            
+            // Demo: show a toast if no courses
+            setTimeout(() => {
+                const enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+                if (enrolled.length === 0) {
+                    const t = document.createElement('div');
+                    t.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translate(-50%,0);padding:7px 16px;background:#0F2744;color:white;border-radius:9999px;font-size:0.7rem';
+                    t.innerHTML = `Tip: Enrol in a course from the catalogue.`;
+                    document.body.appendChild(t);
+                    setTimeout(() => t.remove(), 3000);
+                }
+            }, 2800);
+            
+            console.log('%c[CCREST] Learner dashboard initialized.', 'color:#64748b;font-size:9px');
+        }
+        
+        window.onload = initDashboard;
+    </script>
+</body>
+</html>

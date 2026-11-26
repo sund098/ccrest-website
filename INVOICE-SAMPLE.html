@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice — CCREST</title>
+    <style>
+        body { font-family: 'Inter', system-ui, sans-serif; margin: 40px; color: #0F2744; }
+        .invoice { max-width: 700px; margin: 0 auto; border: 1px solid #e2e8f0; padding: 40px; }
+        .header { display: flex; justify-content: space-between; }
+        .logo { font-size: 28px; font-weight: 800; letter-spacing: -1px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .total { font-weight: 700; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="header">
+            <div>
+                <div class="logo">CCREST</div>
+                <div style="font-size:13px; color:#64748b;">Center for Clinical Research<br>Education &amp; Skills Training</div>
+                <div style="font-size:12px; margin-top:8px;">Bengaluru, India<br>hello@ccrest.in</div>
+            </div>
+            <div style="text-align:right;">
+                <div style="font-size:22px; font-weight:700;">INVOICE</div>
+                <div style="margin-top:4px; font-size:13px;">#INV-2026-00482</div>
+                <div style="font-size:12px; color:#64748b;">Date: 18 June 2026</div>
+            </div>
+        </div>
+        
+        <div style="margin: 25px 0 10px; font-size:13px;">
+            <strong>Bill To:</strong><br>
+            Aarav Mehta<br>
+            learner@demo.ccrest.in
+        </div>
+        
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Qty</th>
+                <th style="text-align:right;">Amount</th>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Clinical Trial Management</strong><br>
+                    <span style="font-size:12px; color:#64748b;">6-week certification course</span>
+                </td>
+                <td>1</td>
+                <td style="text-align:right;">₹4,999</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right; font-weight:600;">Subtotal</td>
+                <td style="text-align:right;">₹4,999</td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align:right;">GST (18%)</td>
+                <td style="text-align:right;">₹900</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="total" style="text-align:right;">Total</td>
+                <td class="total" style="text-align:right;">₹5,899</td>
+            </tr>
+        </table>
+        
+        <div style="font-size:12px; margin-top:20px; padding-top:15px; border-top:1px solid #e2e8f0;">
+            <strong>Payment Method:</strong> Razorpay (UPI)<br>
+            <strong>Transaction ID:</strong> pay_QkL9vX2mP7rT<br>
+            <strong>Status:</strong> <span style="color:#166534; font-weight:600;">PAID</span>
+        </div>
+        
+        <div style="margin-top:25px; font-size:11px; color:#64748b;">
+            Thank you for choosing CCREST. This invoice serves as your official receipt.<br>
+            For any queries, contact support@ccrest.in
+        </div>
+    </div>
+</body>
+</html>

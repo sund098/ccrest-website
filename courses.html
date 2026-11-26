@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses — CCREST.in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@500;600&amp;display=swap');
+        
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .heading-font { font-family: 'Poppins', system_ui, sans-serif; font-weight: 600; }
+        
+        .navy { color: #0F2744; }
+        .gold { color: #C9A34E; }
+        .bg-navy { background-color: #0F2744; }
+        .btn-gold { background-color: #C9A34E; color: white; transition: all 0.3s ease; }
+        .btn-gold:hover { background-color: #B38A3A; }
+        
+        .course-card { transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s; }
+        .course-card:hover { transform: translateY(-5px); box-shadow: 0 15px 20px -8px rgb(15 39 68 / 0.15); }
+        
+        .nav-link { transition: color .2s; }
+        .nav-link:hover { color: #C9A34E; }
+        
+        .section-header { font-size: 2rem; line-height: 2.25rem; font-weight: 700; color: #0F2744; }
+        
+        .filter-btn {
+            transition: all .2s;
+        }
+        
+        .filter-btn.active {
+            background-color: #0F2744;
+            color: white;
+            border-color: #0F2744;
+        }
+        
+        .tutor-badge {
+            font-size: 0.65rem;
+            padding-left: 0.45rem;
+            padding-right: 0.45rem;
+            padding-top: 1px;
+            padding-bottom: 1px;
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Top Bar -->
+    <div class="bg-[#0F2744] text-white py-2 text-sm">
+        <div class="max-w-screen-2xl mx-auto px-6 flex items-center justify-between">
+            <div class="flex items-center gap-x-4 text-xs">
+                <div><span class="font-medium">CCREST.in</span> — 100% Free Tools Platform</div>
+            </div>
+            <div onclick="showLoginModal()" class="flex items-center gap-x-1.5 cursor-pointer text-xs hover:text-[#C9A34E]">
+                <i class="fas fa-user-circle"></i>
+                <span id="top-user-name" class="font-medium">Login / Register</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="bg-white border-b">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="py-4 flex items-center justify-between">
+                <div class="flex items-center gap-x-3">
+                    <a href="index.html" class="flex items-center">
+                        <img src="assets/images/logo.png" alt="CCREST Logo" class="h-9 w-auto">
+                        <div class="ml-2">
+                            <div class="font-extrabold text-3xl tracking-tighter text-[#0F2744]">CCREST</div>
+                            <div class="text-[9px] -mt-1 font-bold tracking-[1.25px] text-slate-500">CENTER FOR CLINICAL RESEARCH</div>
+                        </div>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex items-center gap-x-7 text-sm font-medium">
+                    <a href="index.html" class="nav-link text-slate-700">Home</a>
+                    <a href="courses.html" class="nav-link font-semibold text-[#0F2744]">Courses</a>
+                    <a href="events.html" class="nav-link text-slate-700">Events</a>
+                    <a href="about.html" class="nav-link text-slate-700">About</a>
+                    <a href="blog.html" class="nav-link text-slate-700">Blog</a>
+                    <a href="contact.html" class="nav-link text-slate-700">Contact</a>
+                </nav>
+                
+                <div class="flex items-center gap-x-2">
+                    <a href="index.html" class="hidden md:inline-flex text-xs px-4 py-2 rounded-full border font-medium border-[#0F2744] text-[#0F2744]">Back to Home</a>
+                    
+                    <button onclick="showLoginModal()" id="header-login-btn"
+                            class="px-4 py-[9px] text-xs font-extrabold bg-[#0F2744] hover:bg-[#1a3859] transition-colors text-white rounded-2xl flex items-center px-5">
+                        <span id="header-login-text">Login</span>
+                    </button>
+                    
+                    <div class="md:hidden">
+                        <button onclick="toggleMobileMenu()" class="px-3 py-2 text-xl text-slate-700">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero / Catalogue Header -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-8 pb-4">
+        <div class="flex flex-col md:flex-row md:items-end justify-between">
+            <div>
+                <div class="flex items-center gap-x-[7px]">
+                    <span class="px-3.5 py-[4px] bg-emerald-100 text-emerald-700 rounded-full text-xs font-extrabold">58 COURSES</span>
+                    <span class="px-3.5 py-[4px] bg-amber-100 text-amber-700 rounded-full text-xs font-extrabold">15 FREE</span>
+                </div>
+                <h1 class="text-4xl font-extrabold text-[#0F2744] mt-1 tracking-tight">Course Catalogue</h1>
+                <p class="text-slate-600 mt-1">Browse professional training programmes in clinical research</p>
+            </div>
+            
+            <div class="mt-4 md:mt-0">
+                <div class="flex items-center gap-x-2 bg-white border rounded-3xl px-1 py-1 shadow-sm w-fit">
+                    <div class="px-3 flex items-center">
+                        <input id="search-input" type="text" placeholder="Search courses..." 
+                               class="text-sm px-1 py-1 focus:outline-none w-52 bg-transparent" onkeyup="filterCourses()">
+                        <i class="fas fa-search text-slate-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Filters -->
+    <div class="max-w-screen-2xl mx-auto px-6 py-2">
+        <div class="flex flex-wrap gap-2 items-center">
+            <div class="text-xs font-bold px-3 py-1 text-slate-400">FILTER:</div>
+            
+            <div onclick="filterByCategory(this, 'all')" class="filter-btn active px-4 py-[5px] cursor-pointer text-xs border border-[#0F2744] bg-[#0F2744] text-white font-extrabold rounded-3xl px-5">All</div>
+            <div onclick="filterByCategory(this, 'free')" class="filter-btn px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-5">Free</div>
+            <div onclick="filterByCategory(this, 'paid')" class="filter-btn px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-5">Paid</div>
+            
+            <div class="mx-2 h-3 border-l"></div>
+            
+            <div onclick="filterByLevel(this, 'all')" class="filter-btn active px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-4">All Levels</div>
+            <div onclick="filterByLevel(this, 'beginner')" class="filter-btn px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-4">Beginner</div>
+            <div onclick="filterByLevel(this, 'intermediate')" class="filter-btn px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-4">Intermediate</div>
+            <div onclick="filterByLevel(this, 'advanced')" class="filter-btn px-4 py-[5px] cursor-pointer text-xs border text-slate-700 hover:bg-slate-100 font-extrabold rounded-3xl px-4">Advanced</div>
+        </div>
+    </div>
+    
+    <!-- Course Grid -->
+    <div class="max-w-screen-2xl mx-auto px-6 pt-4 pb-9">
+        <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            <!-- Populated dynamically via JS -->
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-screen-2xl mx-auto px-6 py-7 text-xs">
+            <div class="flex flex-col md:flex-row items-center justify-between text-slate-500">
+                <div>© 2026 CCREST. All rights reserved. Built with free tools.</div>
+                <div class="flex items-center gap-4 mt-2 md:mt-0">
+                    <a href="#" class="hover:text-slate-700">Privacy</a>
+                    <a href="#" class="hover:text-slate-700">Terms</a>
+                    <a href="contact.html" class="hover:text-slate-700">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Login Modal -->
+    <div id="login-modal" onclick="if (event.target.id === 'login-modal') hideLoginModal()" class="hidden fixed inset-0 bg-black/60 flex items-center justify-center z-[200]">
+        <div onclick="event.stopImmediatePropagation()" class="bg-white w-full max-w-md mx-4 rounded-3xl overflow-hidden shadow-2xl">
+            <div class="px-5 pt-5">
+                <div class="flex border-b">
+                    <div onclick="switchLoginTab('login')" id="tab-login" class="flex-1 text-center pb-3 font-extrabold border-b-2 border-[#0F2744] cursor-pointer">Login</div>
+                    <div onclick="switchLoginTab('register')" id="tab-register" class="flex-1 text-center pb-3 font-bold text-slate-500 cursor-pointer">Register</div>
+                </div>
+            </div>
+            
+            <div id="login-form" class="px-6 pt-6 pb-6">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Email Address</label>
+                        <input type="email" id="login-email" value="learner@demo.ccrest.in" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Password</label>
+                        <input type="password" id="login-password" value="demo123" class="w-full px-4 py-[9px] border rounded-2xl text-sm focus:outline-none focus:border-[#C9A34E]">
+                    </div>
+                    
+                    <button onclick="performLogin()" class="w-full py-[12px] bg-[#0F2744] hover:bg-[#1a3859] text-white font-extrabold rounded-2xl text-sm mt-1">Sign In</button>
+                    
+                    <div class="text-center text-xs pt-1">
+                        <div class="flex items-center justify-center gap-x-3 mt-2">
+                            <button onclick="quickLogin('learner')" class="border px-3 py-[5px] text-xs rounded-2xl flex items-center gap-1.5"><i class="fab fa-google"></i> <span>Google</span></button>
+                            <button onclick="quickLogin('teacher')" class="border px-3 py-[5px] text-xs rounded-2xl flex items-center gap-1.5"><i class="fas fa-user-tie"></i> <span>Teacher</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="register-form" class="px-6 pt-1 pb-6 hidden">
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block text-xs font-bold mb-1 text-slate-600">First Name</label><input type="text" value="Aarav" class="w-full px-4 py-[9px] border rounded-2xl text-sm"></div>
+                        <div><label class="block text-xs font-bold mb-1 text-slate-600">Last Name</label><input type="text" value="Mehta" class="w-full px-4 py-[9px] border rounded-2xl text-sm"></div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Email Address</label>
+                        <input type="email" value="newlearner@demo.ccrest.in" class="w-full px-4 py-[9px] border rounded-2xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold mb-1 text-slate-600">Create Password</label>
+                        <input type="password" value="demo123" class="w-full px-4 py-[9px] border rounded-2xl text-sm">
+                    </div>
+                    <button onclick="performRegister()" class="w-full py-[12px] bg-emerald-700 hover:bg-emerald-800 text-white font-extrabold rounded-2xl text-sm">Create Free Account</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let currentUser = null;
+        let allCourses = [];
+        async function loadCoursesFromAPI() {
+    try {
+        const response = await fetch('http://localhost:5000/api/courses');
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch courses');
+        }
+
+        const data = await response.json();
+
+        allCourses = data.map(course => ({
+            id: course._id,
+            title: course.title,
+            price: course.price,
+            isFree: course.price === 0,
+            level: (course.level || 'beginner').toLowerCase(),
+            duration: 'Self-paced',
+            enrolled: 0,
+            rating: 4.8,
+            instructor: course.instructor || 'CCREST Instructor',
+            category: course.price === 0 ? 'free' : 'paid',
+            thumbnail: 'assets/images/course-intro.jpg',
+            description: course.description || '',
+            lessons: 0,
+            students: 0,
+            completion: 0
+        }));
+
+        renderCourses(allCourses);
+
+        console.log('Courses loaded from MongoDB:', allCourses);
+
+    } catch (error) {
+        console.error('Error loading courses:', error);
+
+        document.getElementById('courses-grid').innerHTML =
+            `<div class="col-span-4 text-center text-red-600 py-8">
+                Unable to load courses. Please check the backend server.
+            </div>`;
+    }
+}
+        
+        function initializeTailwind() {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: { 'premium': ['Inter', 'system-ui', 'sans-serif'] }
+                    }
+                }
+            };
+        }
+        
+        function checkLoginStatus() {
+            const savedUser = localStorage.getItem('ccrest_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateHeaderUser();
+            }
+        }
+        
+        function updateHeaderUser() {
+            const topUser = document.getElementById('top-user-name');
+            const headerBtn = document.getElementById('header-login-btn');
+            
+            if (currentUser && topUser && headerBtn) {
+                topUser.innerHTML = currentUser.name.split(' ')[0];
+                headerBtn.innerHTML = `<div class="flex items-center gap-x-1.5"><img src="https://i.pravatar.cc/22?img=${currentUser.role === 'teacher' ? '40' : '28'}" class="w-5 h-5 rounded-full"><span class="font-medium text-xs">${currentUser.name.split(' ')[0]}</span></div>`;
+                headerBtn.onclick = () => {
+                    const menu = document.createElement('div');
+                    menu.className = `absolute right-6 top-[68px] bg-white shadow-xl border w-52 rounded-2xl py-1 z-[220]`;
+                    menu.innerHTML = `
+                        <div class="px-4 py-2.5 border-b">
+                            <div class="font-semibold">${currentUser.name}</div>
+                            <div class="text-xs text-slate-500">${currentUser.email}</div>
+                        </div>
+                        <div class="text-sm py-1">
+                            ${currentUser.role === 'learner' ? `<a href="dashboard-learner.html" class="flex px-4 py-[6px] hover:bg-slate-50 items-center gap-2 px-4"><i class="fas fa-tachometer-alt w-3.5"></i> <span>Dashboard</span></a>` : ''}
+                            ${currentUser.role === 'teacher' ? `<a href="dashboard-teacher.html" class="flex px-4 py-[6px] hover:bg-slate-50 items-center gap-2 px-4"><i class="fas fa-chalkboard-teacher w-3.5"></i> <span>Teacher Dashboard</span></a>` : ''}
+                            ${currentUser.role === 'admin' ? `<a href="dashboard-admin.html" class="flex px-4 py-[6px] hover:bg-slate-50 items-center gap-2 px-4"><i class="fas fa-cog w-3.5"></i> <span>Admin Dashboard</span></a>` : ''}
+                            <a href="courses.html" class="flex px-4 py-[6px] hover:bg-slate-50 items-center gap-2 px-4"><i class="fas fa-graduation-cap w-3.5"></i> <span>Browse Courses</span></a>
+                            <div onclick="logoutUser(); this.closest('.fixed').remove()" class="flex px-4 py-[6px] hover:bg-slate-50 cursor-pointer items-center gap-2 px-4 text-red-600"><i class="fas fa-sign-out-alt w-3.5"></i> <span>Logout</span></div>
+                        </div>
+                    `;
+                    document.querySelectorAll('.user-menu-popup').forEach(el => el.remove());
+                    menu.classList.add('user-menu-popup');
+                    document.body.appendChild(menu);
+                    
+                    setTimeout(() => {
+                        document.addEventListener('click', function h(e) {
+                            if (!menu.contains(e.target)) {
+                                menu.remove();
+                                document.removeEventListener('click', h);
+                            }
+                        }, {once: true});
+                    }, 10);
+                };
+            }
+        }
+        
+        function logoutUser() {
+            localStorage.removeItem('ccrest_user');
+            window.location.reload();
+        }
+        
+        function renderCourses(courses) {
+            const grid = document.getElementById('courses-grid');
+            grid.innerHTML = '';
+            
+            if (!courses.length) {
+                grid.innerHTML = `<div class="col-span-4 py-8 text-center text-sm text-slate-500">No courses match your filter.</div>`;
+                return;
+            }
+            
+            courses.forEach(course => {
+                const isEnrolled = isUserEnrolled(course.id);
+                
+                const cardHTML = `
+                    <div class="course-card bg-white border border-slate-200 rounded-3xl overflow-hidden">
+                        <div class="relative">
+                            <img src="${course.thumbnail}" class="w-full h-[148px] object-cover" alt="${course.title}">
+                            
+                            ${course.isFree ? 
+                                `<div class="absolute top-3 left-3 px-2.5 py-[1px] bg-emerald-600 text-white text-xs font-extrabold tracking-wider rounded-full flex items-center gap-x-1"><i class="fas fa-check-double text-xs"></i> <span>FREE</span></div>` : 
+                                `<div class="absolute top-3 left-3 px-2.5 py-[1px] bg-[#C9A34E] text-white text-xs font-extrabold tracking-wider rounded-full">CERTIFIED</div>`
+                            }
+                            
+                            <div class="absolute top-3 right-3 bg-white px-2 py-0.5 text-xs font-bold flex items-center rounded-full shadow-sm">
+                                <span class="text-emerald-600">${course.rating}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="px-4 pt-4 pb-[13px]">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-extrabold px-2.5 py-[1px] ${course.level === 'beginner' ? 'bg-emerald-100 text-emerald-700' : course.level === 'intermediate' ? 'bg-amber-100 text-amber-700' : 'bg-slate-200 text-slate-700'} rounded">${course.level.toUpperCase()}</span>
+                                <span class="text-xs font-medium text-slate-400">${course.duration}</span>
+                            </div>
+                            
+                            <h3 class="font-extrabold text-[15.5px] leading-[1.15] mt-2 text-[#0F2744]">${course.title}</h3>
+                            
+                            <div class="flex items-center gap-x-2 mt-2.5">
+                                <div class="flex items-center">
+                                    <img src="assets/images/instructor.jpg" class="w-5 h-5 rounded-full ring-1 ring-offset-1 ring-offset-white ring-slate-200 object-cover" alt="">
+                                    <span class="ml-1.5 text-xs font-semibold">${course.instructor}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 flex justify-between items-end">
+                                <div>
+                                    ${course.isFree ? 
+                                        `<span class="font-extrabold text-xl">FREE</span>` : 
+                                        `<span class="font-extrabold text-xl">₹${course.price}</span> <span class="text-xs text-slate-400">/ $${Math.round(course.price / 84)}</span>`
+                                    }
+                                </div>
+                                
+                                <div>
+                                    ${isEnrolled ? 
+                                        `<a href="course-detail.html?id=${course.id}" class="px-5 py-[7px] rounded-2xl bg-emerald-700 text-white text-xs font-extrabold flex items-center px-4 gap-1">
+                                            <span>Continue</span>
+                                        </a>` : 
+                                        `<button onclick="enrolInCourse(${course.id}, this)" class="px-5 py-[7px] text-xs rounded-2xl ${course.isFree ? 'bg-emerald-600 hover:bg-emerald-700' : 'bg-[#0F2744] hover:bg-[#1a3859]'} text-white font-extrabold flex items-center px-4 gap-1">
+                                            <span>${course.isFree ? 'Enrol Free' : 'Enrol Now'}</span>
+                                        </button>`
+                                    }
+                                </div>
+                            </div>
+                            
+                            <div class="text-xs flex justify-between mt-3 items-center">
+                                <div class="flex items-center text-slate-500">
+                                    <i class="fas fa-users text-xs mr-1"></i> 
+                                    <span>${course.enrolled.toLocaleString()}</span>
+                                </div>
+                                <div class="text-xs font-bold text-emerald-700">${course.completion}% complete</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                grid.innerHTML += cardHTML;
+            });
+        }
+        
+        function isUserEnrolled(courseId) {
+            if (!currentUser || currentUser.role !== 'learner') return false;
+            const enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+            return enrolled.includes(courseId);
+        }
+        
+        let currentFilter = 'all';
+        let currentLevelFilter = 'all';
+        
+        function filterCourses() {
+            const search = document.getElementById('search-input').value.toLowerCase().trim();
+            
+            let filtered = allCourses;
+            
+            // Category filter
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(c => c.category === currentFilter);
+            }
+            
+            // Level filter
+            if (currentLevelFilter !== 'all') {
+                filtered = filtered.filter(c => c.level === currentLevelFilter);
+            }
+            
+            // Search
+            if (search) {
+                filtered = filtered.filter(c => 
+                    c.title.toLowerCase().includes(search) || 
+                    c.instructor.toLowerCase().includes(search) ||
+                    c.description.toLowerCase().includes(search)
+                );
+            }
+            
+            renderCourses(filtered);
+        }
+        
+        function filterByCategory(el, filterType) {
+            // deselect all
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active', 'bg-[#0F2744]', 'text-white', 'border-[#0F2744]'));
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                if (b.innerText.toLowerCase().includes('all')) b.classList.add('border', 'text-slate-700');
+            });
+            
+            el.classList.add('active', 'bg-[#0F2744]', 'text-white', 'border-[#0F2744]');
+            
+            currentFilter = filterType;
+            filterCourses();
+        }
+        
+        function filterByLevel(el, level) {
+            document.querySelectorAll('.filter-btn').forEach(b => {
+                if (b.innerText.toLowerCase().includes('level') || b.innerText.toLowerCase().includes('beginner') || b.innerText.toLowerCase().includes('intermediate') || b.innerText.toLowerCase().includes('advanced')) {
+                    b.classList.remove('active', 'bg-[#0F2744]', 'text-white');
+                }
+            });
+            
+            el.classList.add('active', 'bg-[#0F2744]', 'text-white');
+            
+            currentLevelFilter = level;
+            filterCourses();
+        }
+        
+        function enrolInCourse(courseId, btnElement) {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            if (currentUser.role !== 'learner') {
+                alert('Only learners can enrol in courses.');
+                return;
+            }
+            
+            const course = allCourses.find(c => c.id === courseId);
+            
+            // If free: instant enrolment
+            if (course.isFree) {
+                let enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+                if (!enrolled.includes(courseId)) enrolled.push(courseId);
+                localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolled));
+                
+                btnElement.innerHTML = `<span>Enrolled!</span>`;
+                btnElement.classList.add('!bg-emerald-700');
+                
+                setTimeout(() => {
+                    window.location.href = `course-detail.html?id=${courseId}`;
+                }, 800);
+            } else {
+                // Paid course: show checkout modal
+                showCheckoutModal(course, btnElement);
+            }
+        }
+        
+        function showCheckoutModal(course, btnElement) {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 flex items-center justify-center bg-black/60 z-[190]`;
+            
+            modal.innerHTML = `
+                <div class="max-w-lg w-full mx-4 bg-white rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="px-5 py-4 flex justify-between bg-slate-50 items-center border-b">
+                        <div>
+                            <span class="font-bold">Checkout</span>
+                        </div>
+                        <div onclick="this.closest('.fixed').remove()" class="text-xl leading-none cursor-pointer px-2">&times;</div>
+                    </div>
+                    
+                    <div class="px-5 pt-5 pb-2">
+                        <div class="flex gap-x-4">
+                            <div class="flex-1">
+                                <div class="font-extrabold">${course.title}</div>
+                                <div class="text-xs text-slate-500 mt-0.5">by ${course.instructor} • ${course.duration}</div>
+                            </div>
+                            
+                            <div class="text-right">
+                                <div class="font-extrabold text-xl">₹${course.price}</div>
+                                <div class="text-xs text-slate-500">USD $${Math.round(course.price / 84)}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="my-5 px-1">
+                            <div class="text-xs font-bold text-slate-600">PAYMENT METHOD</div>
+                            
+                            <!-- Payment tabs -->
+                            <div class="flex mt-2 border rounded-2xl p-[2px]">
+                                <div onclick="selectPaymentGateway(this, 'razorpay')" class="payment-tab active flex-1 px-4 py-2 text-xs font-extrabold cursor-pointer bg-[#0F2744] text-white flex items-center justify-center rounded-[14px]">
+                                    <span>Razorpay (India)</span>
+                                </div>
+                                <div onclick="selectPaymentGateway(this, 'stripe')" class="payment-tab flex-1 px-4 py-2 text-xs font-extrabold cursor-pointer text-[#0F2744] flex items-center justify-center">
+                                    <span>Stripe (Intl)</span>
+                                </div>
+                            </div>
+                            
+                            <div id="payment-details" class="mt-4 text-xs px-1">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="font-semibold">Razorpay</div>
+                                    <div class="px-2.5 py-0.5 text-emerald-600 text-xs bg-emerald-100 rounded font-bold">UPI, Cards, Netbanking</div>
+                                </div>
+                                
+                                <div class="text-xs text-slate-500">You will be redirected to Razorpay's secure checkout. Supports instant UPI, cards, net banking, wallets.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="px-1">
+                            <div class="flex items-center gap-x-2 text-xs">
+                                <input type="checkbox" checked class="accent-emerald-600">
+                                <span class="text-xs">I agree to the terms and refund policy.</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-5 py-5 bg-slate-50">
+                        <button onclick="processPayment(${course.id}, this)" class="w-full py-3 bg-emerald-600 hover:bg-emerald-700 transition-colors text-white font-extrabold text-sm rounded-2xl flex items-center justify-center">
+                            <span>Pay ₹${course.price} &amp; Enrol</span>
+                        </button>
+                        
+                        <div class="text-center pt-3">
+                            <div class="text-xs text-emerald-700 font-medium flex justify-center items-center gap-1">
+                                <i class="fas fa-lock text-xs"></i> 
+                                <span>Secure checkout powered by Razorpay / Stripe</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Save reference for payment select
+            window.currentCheckoutCourse = course;
+            window.currentCheckoutBtn = btnElement;
+        }
+        
+        function selectPaymentGateway(el, gateway) {
+            document.querySelectorAll('.payment-tab').forEach(t => {
+                t.classList.remove('active', 'bg-[#0F2744]', 'text-white');
+                t.classList.add('text-[#0F2744]');
+            });
+            
+            el.classList.add('active', 'bg-[#0F2744]', 'text-white');
+            el.classList.remove('text-[#0F2744]');
+            
+            const details = document.getElementById('payment-details');
+            
+            if (gateway === 'razorpay') {
+                details.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="font-semibold">Razorpay</div>
+                        <div class="px-2.5 py-0.5 text-emerald-600 text-xs bg-emerald-100 rounded font-bold">UPI, Cards, Netbanking</div>
+                    </div>
+                    <div class="text-xs text-slate-500">You will be redirected to Razorpay's secure checkout. Supports instant UPI, cards, net banking, wallets.</div>
+                `;
+            } else {
+                details.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="font-semibold">Stripe</div>
+                        <div class="px-2.5 py-0.5 text-emerald-600 text-xs bg-emerald-100 rounded font-bold">Cards (USD/EUR)</div>
+                    </div>
+                    <div class="text-xs text-slate-500">Secure international checkout with Stripe. All major cards supported.</div>
+                `;
+            }
+            
+            window.selectedGateway = gateway;
+        }
+        
+        function processPayment(courseId, buttonEl) {
+            const course = allCourses.find(c => c.id === courseId);
+            const gateway = window.selectedGateway || 'razorpay';
+            
+            buttonEl.innerHTML = `<span class="flex items-center justify-center"><i class="fas fa-spinner fa-spin mr-2"></i> Processing...</span>`;
+            buttonEl.disabled = true;
+            
+            setTimeout(() => {
+                // Simulate successful payment
+                let enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+                if (!enrolled.includes(courseId)) enrolled.push(courseId);
+                localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolled));
+                
+                // Simulate payment record
+                let payments = JSON.parse(localStorage.getItem('ccrest_payments') || '[]');
+                payments.push({
+                    id: Date.now(),
+                    courseId: courseId,
+                    amount: course.price,
+                    gateway: gateway,
+                    date: new Date().toISOString(),
+                    userId: currentUser.id,
+                    status: 'paid',
+                    transactionId: 'txn_' + Math.floor(Math.random() * 100000000)
+                });
+                localStorage.setItem('ccrest_payments', JSON.stringify(payments));
+                
+                // Close modal
+                buttonEl.closest('.fixed').remove();
+                
+                // Show success
+                const successModal = document.createElement('div');
+                successModal.className = `fixed inset-0 bg-black/60 flex items-center justify-center z-[210]`;
+                successModal.innerHTML = `
+                    <div class="bg-white w-full max-w-sm mx-4 rounded-3xl p-6 text-center">
+                        <div class="mx-auto w-12 h-12 flex justify-center items-center rounded-full bg-emerald-100">
+                            <i class="fas fa-check text-emerald-600 text-3xl"></i>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h3 class="font-extrabold text-xl">Payment successful!</h3>
+                            <p class="mt-2 text-sm">You are now enrolled in <span class="font-bold">${course.title}</span>.</p>
+                            
+                            <div class="px-4 py-3 mt-4 bg-emerald-50 text-xs rounded-2xl">
+                                <div class="flex justify-between text-xs">
+                                    <span>Transaction ID:</span> 
+                                    <span class="font-bold">txn_${Math.floor(Math.random() * 100000000)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-center gap-x-2">
+                            <button onclick="window.location.href='course-detail.html?id=${courseId}'; this.closest('.fixed').remove()" class="px-5 py-2 bg-emerald-700 text-white rounded-2xl text-xs font-extrabold px-7">Start Course</button>
+                            <button onclick="this.closest('.fixed').remove()" class="px-5 py-2 border text-xs font-bold rounded-2xl px-5">Close</button>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(successModal);
+                
+                // Refresh courses grid
+                setTimeout(() => {
+                    renderCourses(allCourses);
+                }, 800);
+            }, 1650);
+        }
+        
+        function showLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            switchLoginTab('login');
+        }
+        
+        function hideLoginModal() {
+            const modal = document.getElementById('login-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function switchLoginTab(tab) {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabRegister = document.getElementById('tab-register');
+            
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                registerForm.classList.add('hidden');
+                tabLogin.classList.add('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabLogin.classList.remove('text-slate-500');
+                tabRegister.classList.remove('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabRegister.classList.add('text-slate-500');
+            } else {
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+                tabRegister.classList.add('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabRegister.classList.remove('text-slate-500');
+                tabLogin.classList.remove('border-b-2', 'border-[#0F2744]', 'font-extrabold');
+                tabLogin.classList.add('text-slate-500');
+            }
+        }
+        
+        function performLogin() {
+            const email = document.getElementById('login-email').value || 'learner@demo.ccrest.in';
+            let role = 'learner';
+            let name = 'Aarav Mehta';
+            
+            if (email.includes('teacher')) {
+                role = 'teacher';
+                name = 'Dr. Vikram Sharma';
+            } else if (email.includes('admin')) {
+                role = 'admin';
+                name = 'CCREST Admin';
+            }
+            
+            currentUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                role: role,
+                joined: '2025-11-03'
+            };
+            
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            
+            updateHeaderUser();
+            
+            setTimeout(() => {
+                if (role === 'learner') window.location.href = 'dashboard-learner.html';
+                else if (role === 'teacher') window.location.href = 'dashboard-teacher.html';
+                else if (role === 'admin') window.location.href = 'dashboard-admin.html';
+            }, 500);
+        }
+        
+        function performRegister() {
+            const email = document.getElementById('register-form').querySelector('input[type="email"]').value || 'newlearner@demo.ccrest.in';
+            
+            currentUser = {
+                id: Date.now(),
+                name: 'Aarav Mehta',
+                email: email,
+                role: 'learner',
+                joined: new Date().toISOString().split('T')[0]
+            };
+            
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            
+            updateHeaderUser();
+            
+            setTimeout(() => {
+                window.location.href = 'courses.html';
+            }, 700);
+        }
+        
+        function quickLogin(type) {
+            let userData;
+            
+            if (type === 'learner') {
+                userData = { id: 101, name: 'Aarav Mehta', email: 'learner@demo.ccrest.in', role: 'learner', joined: '2025-11-03' };
+            } else if (type === 'teacher') {
+                userData = { id: 202, name: 'Dr. Vikram Sharma', email: 'teacher@demo.ccrest.in', role: 'teacher', joined: '2024-05-12' };
+            }
+            
+            currentUser = userData;
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            hideLoginModal();
+            updateHeaderUser();
+            
+            setTimeout(() => {
+                if (type === 'learner') window.location.href = 'dashboard-learner.html';
+                else if (type === 'teacher') window.location.href = 'dashboard-teacher.html';
+            }, 400);
+        }
+        
+        function toggleMobileMenu() {
+            const nav = document.createElement('div');
+            nav.className = `fixed inset-0 z-[190] md:hidden bg-black/30`;
+            nav.innerHTML = `
+                <div onclick="event.target.remove()" class="w-3/4 bg-white h-full ml-auto px-6 py-6">
+                    <div class="flex justify-between mb-6 px-1">
+                        <div class="flex items-center">
+                            <img src="assets/images/logo.png" class="h-7" alt="">
+                            <span class="font-extrabold ml-2 tracking-tighter">CCREST</span>
+                        </div>
+                        <div class="text-2xl leading-none cursor-pointer">&times;</div>
+                    </div>
+                    
+                    <div class="flex flex-col text-sm">
+                        <a href="index.html" class="py-3 px-2 border-b">Home</a>
+                        <a href="courses.html" class="py-3 px-2 border-b font-bold">Courses</a>
+                        <a href="events.html" class="py-3 px-2 border-b">Events</a>
+                        <a href="about.html" class="py-3 px-2 border-b">About</a>
+                        <a href="blog.html" class="py-3 px-2 border-b">Blog</a>
+                        <a href="contact.html" class="py-3 px-2 border-b">Contact</a>
+                        
+                        <div class="pt-5 px-2">
+                            <button onclick="showLoginModal(); this.closest('.fixed').remove()" class="w-full py-3 text-center bg-[#0F2744] text-white rounded-2xl font-extrabold text-sm">Login / Register</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(nav);
+        }
+        
+        function initializeCourses() {
+            initializeTailwind();
+            checkLoginStatus();
+            
+            // Render initial courses
+            loadCoursesFromAPI();
+            
+            // Set initial filters
+            const firstFilter = document.querySelector('.filter-btn');
+            if (firstFilter) firstFilter.classList.add('active');
+            
+            // Set initial search listener already in HTML
+            
+            // Show demo tip
+            setTimeout(function() {
+                if (window.location.search.includes('demo')) {
+                    const toast = document.createElement('div');
+                    toast.style.cssText = 'position:fixed;bottom:20px;right:20px;padding:8px 14px;background:#0F2744;color:white;border-radius:9999px;font-size:0.75rem;';
+                    toast.innerHTML = 'Demo: Try searching or filtering!';
+                    document.body.appendChild(toast);
+                    setTimeout(() => toast.remove(), 2400);
+                }
+            }, 3000);
+            
+            // Keyboard search focus
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "/" && document.activeElement.tagName === "BODY") {
+                    e.preventDefault();
+                    document.getElementById('search-input').focus();
+                }
+            });
+            
+            console.log('%c[CCREST] Course catalogue loaded. (Free Tutor LMS + WooCommerce simulation)', 'color:#64748b;font-size:9px');
+        }
+        
+        window.onload = initializeCourses;
+    </script>
+</body>
+</html>

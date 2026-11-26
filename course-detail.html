@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course — CCREST.in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@500;600&amp;display=swap');
+        body { font-family: 'Inter', system_ui, sans-serif; }
+        .navy { color: #0F2744; }
+        .section-header { font-size: 1.85rem; line-height: 2.1rem; font-weight: 700; color: #0F2744; }
+        
+        .lesson-item { transition: background-color .1s; }
+        .lesson-item:hover { background-color: #f8fafc; }
+        
+        .curriculum-locked { opacity: .6; }
+        
+        .progress-bar { transition: width 1.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
+        
+        .tutor-lesson { font-size: .95rem; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <!-- Top navigation -->
+    <div class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-screen-2xl mx-auto px-6">
+            <div class="flex items-center justify-between py-3">
+                <div class="flex items-center gap-x-3">
+                    <a href="index.html" class="flex items-center">
+                        <img src="assets/images/logo.png" alt="CCREST" class="h-8 w-auto">
+                        <span class="font-extrabold ml-2 text-2xl tracking-tighter text-[#0F2744]">CCREST</span>
+                    </a>
+                    <div class="hidden md:block px-2 text-sm">
+                        <span class="px-2.5 py-0.5 text-xs bg-slate-100 text-slate-600 font-semibold rounded">TUTOR LMS</span>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-x-2 text-sm">
+                    <a href="courses.html" class="px-4 py-1.5 text-xs font-semibold border text-slate-600 hover:bg-white rounded-full px-5">Back to Catalogue</a>
+                    
+                    <div id="nav-user" onclick="showUserDropdown()" class="cursor-pointer flex items-center px-1 text-xs font-semibold gap-x-2">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="max-w-screen-2xl mx-auto px-6 pt-6">
+        <!-- Course Header -->
+        <div class="flex flex-col lg:flex-row gap-x-8">
+            <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                    <span id="course-level-badge" class="px-3 py-[3px] text-xs font-extrabold rounded-full"></span>
+                    <span id="course-duration" class="text-xs px-2 text-slate-500"></span>
+                </div>
+                
+                <h1 id="course-title" class="text-4xl font-extrabold tracking-tighter text-[#0F2744]"></h1>
+                
+                <div class="flex items-center gap-x-4 mt-3">
+                    <div class="flex items-center">
+                        <img id="instructor-avatar" src="assets/images/instructor.jpg" class="w-7 h-7 rounded-full ring-1 ring-offset-1 ring-offset-white ring-slate-200" alt="">
+                        <span id="course-instructor" class="ml-2 font-semibold"></span>
+                    </div>
+                    <div class="flex items-center text-xs">
+                        <div class="flex text-amber-400">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <span id="course-rating" class="ml-1.5 font-extrabold text-sm"></span>
+                    </div>
+                </div>
+                
+                <div class="mt-3 flex items-center gap-x-3 text-sm">
+                    <div id="enrolled-count" class="flex items-center text-xs font-medium px-3 py-1 bg-slate-100 rounded-full"></div>
+                    <div class="text-xs flex items-center text-emerald-700"><i class="fas fa-check-double mr-1"></i> <span id="completion-rate"></span></div>
+                </div>
+            </div>
+            
+            <div class="lg:w-80 mt-5 lg:mt-0">
+                <div id="enrol-card" class="bg-white shadow-sm border rounded-3xl px-5 py-5">
+                    <!-- JS populated enrolment card -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Main content -->
+        <div class="mt-7 grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Curriculum & Content -->
+            <div class="lg:col-span-7">
+                <div class="mb-4 px-1 flex items-center justify-between">
+                    <div class="font-extrabold text-lg">Curriculum</div>
+                    <div class="text-xs text-emerald-600 font-bold flex items-center">
+                        <span id="progress-text">0/0 lessons complete</span>
+                    </div>
+                </div>
+                
+                <div class="bg-white border rounded-3xl p-1.5" id="curriculum-container">
+                    <!-- Populated by JS -->
+                </div>
+                
+                <!-- Q&amp;A Section -->
+                <div class="mt-8">
+                    <div class="flex justify-between items-center px-1 mb-3">
+                        <div class="font-extrabold">Q&amp;A / Discussion</div>
+                        <button onclick="showAskQuestionModal()" class="text-xs font-extrabold flex items-center px-4 py-1 bg-slate-900 hover:bg-black transition-colors text-white rounded-2xl text-center px-3">
+                            <i class="fas fa-comment-dots mr-2 text-xs"></i> <span class="text-xs">Ask a question</span>
+                        </button>
+                    </div>
+                    
+                    <div class="bg-white border rounded-3xl p-5" id="qa-section">
+                        <!-- JS populated Q&amp;A -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="lg:col-span-5">
+                <div class="bg-white border rounded-3xl px-5 py-5">
+                    <div class="font-extrabold px-1 mb-3">About this course</div>
+                    
+                    <div id="course-description" class="text-sm text-slate-600 px-1 leading-relaxed"></div>
+                    
+                    <div class="mt-5 px-1">
+                        <div class="grid grid-cols-3 gap-3 text-xs">
+                            <div>
+                                <div class="font-bold text-xs">Lessons</div>
+                                <div id="lesson-count" class="font-extrabold text-2xl text-[#0F2744]"></div>
+                            </div>
+                            <div>
+                                <div class="font-bold text-xs">Quizzes</div>
+                                <div class="font-extrabold text-2xl text-[#0F2744]">4</div>
+                            </div>
+                            <div>
+                                <div class="font-bold text-xs">Certificate</div>
+                                <div class="font-extrabold text-2xl text-[#0F2744]">Yes</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-5 border-t pt-4 px-1">
+                        <div class="flex items-center gap-x-2 text-xs">
+                            <div class="font-semibold">Includes:</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-y-2 mt-2 text-xs">
+                            <div class="flex items-center"><i class="fas fa-video text-emerald-500 mr-2 w-3"></i> <span>Video lessons</span></div>
+                            <div class="flex items-center"><i class="fas fa-file-pdf text-emerald-500 mr-2 w-3"></i> <span>Downloadable PDFs</span></div>
+                            <div class="flex items-center"><i class="fas fa-comments text-emerald-500 mr-2 w-3"></i> <span>Q&amp;A support</span></div>
+                            <div class="flex items-center"><i class="fas fa-calendar text-emerald-500 mr-2 w-3"></i> <span>Live sessions</span></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Live sessions -->
+                <div class="mt-5 bg-white border px-5 py-4 rounded-3xl">
+                    <div class="font-extrabold text-sm px-1">Upcoming Live Session</div>
+                    <div class="mt-3 flex items-center justify-between px-1">
+                        <div>
+                            <div class="font-bold text-sm">Q&amp;A with Instructor</div>
+                            <div class="text-xs">Feb 28 • 4:30 PM IST</div>
+                        </div>
+                        <button onclick="joinLiveSession()" class="px-4 text-xs py-[5px] font-extrabold bg-[#0F2744] text-white rounded-2xl px-4 text-center">Join</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="max-w-screen-2xl mx-auto px-6 mt-12 pb-8">
+        <div class="text-xs text-center text-slate-400">Content protected. This is a simulation of Tutor LMS on WordPress. All videos are YouTube unlisted embeds.</div>
+    </div>
+    
+    <!-- Lesson Modal -->
+    <div id="lesson-modal" onclick="if (event.target.id === 'lesson-modal') hideLessonModal()" class="hidden fixed inset-0 bg-black/70 flex items-end lg:items-center justify-center z-[300]">
+        <div onclick="event.stopImmediatePropagation()" class="w-full lg:w-[860px] bg-white lg:rounded-3xl lg:m-4 rounded-t-3xl max-h-[90vh]">
+            
+            <div class="px-5 py-4 flex items-center justify-between border-b">
+                <div id="modal-lesson-title" class="font-extrabold"></div>
+                <div class="flex items-center gap-x-2">
+                    <div id="lesson-progress-indicator" class="px-3 py-1 text-xs font-bold rounded-full bg-emerald-100 text-emerald-600"></div>
+                    <button onclick="hideLessonModal()" class="text-2xl px-1 leading-none text-slate-400">&times;</button>
+                </div>
+            </div>
+            
+            <div class="p-5 lg:p-6" id="lesson-content">
+                <!-- Dynamic content -->
+            </div>
+            
+            <div class="px-5 py-[13px] flex items-center justify-between border-t bg-slate-50 rounded-b-3xl lg:rounded-b-3xl">
+                <div>
+                    <button onclick="markLessonComplete()" class="text-xs font-extrabold px-4 py-[7px] flex items-center gap-2 text-emerald-700 hover:text-emerald-800">
+                        <i class="fas fa-check-circle"></i> <span>Mark as complete</span>
+                    </button>
+                </div>
+                
+                <div class="flex gap-x-2">
+                    <button onclick="prevLesson()" class="px-5 py-[7px] text-xs font-extrabold border rounded-2xl px-4">Previous</button>
+                    <button onclick="nextLesson()" class="px-5 py-[7px] text-xs font-extrabold bg-[#0F2744] text-white rounded-2xl px-4">Next Lesson</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        let currentUser = null;
+        let currentCourse = null;
+        let currentLessonIndex = 0;
+        let enrolledCourses = [];
+        
+        function initializeTailwind() {
+            tailwind.config = { theme: { extend: {} } };
+        }
+        
+        function getCourseIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('id')) || 1;
+        }
+        
+        function loadCourseData() {
+            const courseId = getCourseIdFromUrl();
+            
+            // Hardcoded data (in production this would come from Tutor LMS)
+            const coursesData = [
+                {
+                    id: 1, title: "Introduction to Clinical Research", price: 0, isFree: true, level: "beginner", 
+                    duration: "8 weeks", enrolled: 3280, rating: 4.9, instructor: "Dr. Ananya Rao",
+                    thumbnail: "assets/images/course-intro.jpg",
+                    description: "A comprehensive introduction to clinical research principles, ethics and methodology. Perfect for new professionals entering the field.",
+                    lessons: 32, completion: 96, students: 3280,
+                    lessonsList: [
+                        {id: 1, title: "What is Clinical Research?", type: "video", duration: "14 min", completed: true, preview: true},
+                        {id: 2, title: "History & Evolution of Clinical Trials", type: "video", duration: "22 min", completed: true, preview: true},
+                        {id: 3, title: "Ethics and Informed Consent", type: "video", duration: "17 min", completed: false, preview: true},
+                        {id: 4, title: "Regulatory Framework in India", type: "video", duration: "25 min", completed: false, preview: false},
+                        {id: 5, title: "Study Design Fundamentals", type: "video", duration: "19 min", completed: false, preview: false},
+                        {id: 6, title: "Introduction to GCP", type: "video", duration: "15 min", completed: false, preview: false},
+                        {id: 7, title: "Quiz: Foundations", type: "quiz", duration: "10 min", completed: false, preview: false},
+                    ]
+                },
+                {
+                    id: 2, title: "Clinical Trial Management", price: 4999, isFree: false, level: "intermediate", 
+                    duration: "6 weeks", enrolled: 1129, rating: 4.8, instructor: "Dr. Vikram Sharma",
+                    thumbnail: "assets/images/course-clinical.jpg",
+                    description: "Master the end-to-end management of clinical trials from protocol to close-out. Includes live Q&A sessions with industry experts.",
+                    lessons: 24, completion: 88, students: 1129,
+                    lessonsList: [
+                        {id: 1, title: "Trial Planning & Protocol Development", type: "video", duration: "28 min", completed: true, preview: true},
+                        {id: 2, title: "Site Selection & Feasibility", type: "video", duration: "19 min", completed: true, preview: true},
+                        {id: 3, title: "Patient Recruitment Strategies", type: "video", duration: "16 min", completed: false, preview: false},
+                        {id: 4, title: "Data Monitoring & Safety", type: "video", duration: "31 min", completed: false, preview: false},
+                        {id: 5, title: "Regulatory Submissions", type: "document", duration: "N/A", completed: false, preview: false},
+                        {id: 6, title: "Final Assessment", type: "quiz", duration: "30 min", completed: false, preview: false},
+                    ]
+                },
+                {
+                    id: 3, title: "Good Clinical Practice (GCP) Essentials", price: 2999, isFree: false, level: "intermediate", 
+                    duration: "4 weeks", enrolled: 2461, rating: 4.9, instructor: "Prof. Meera Iyer",
+                    thumbnail: "assets/images/course-clinical.jpg",
+                    description: "Essential GCP training aligned with ICH E6(R3) guidelines for all clinical research professionals.",
+                    lessons: 18, completion: 91, students: 2461,
+                    lessonsList: [
+                        {id: 1, title: "ICH GCP Guidelines Overview", type: "video", duration: "24 min", completed: true, preview: true},
+                        {id: 2, title: "Roles & Responsibilities", type: "video", duration: "15 min", completed: false, preview: true},
+                        {id: 3, title: "Informed Consent Process", type: "video", duration: "18 min", completed: false, preview: false},
+                        {id: 4, title: "Safety Reporting", type: "document", duration: "N/A", completed: false, preview: false},
+                        {id: 5, title: "GCP Quiz", type: "quiz", duration: "15 min", completed: false, preview: false}
+                    ]
+                },
+                {
+                    id: 4, title: "Regulatory Affairs in India", price: 3499, isFree: false, level: "intermediate", 
+                    duration: "5 weeks", enrolled: 774, rating: 4.7, instructor: "Dr. Sanjay Malhotra",
+                    thumbnail: "assets/images/course-intro.jpg",
+                    description: "Navigate the Indian regulatory environment for drugs, devices and clinical trials.",
+                    lessons: 22, completion: 79, students: 774,
+                    lessonsList: [
+                        {id: 1, title: "Overview of CDSCO", type: "video", duration: "19 min", completed: false, preview: true},
+                        {id: 2, title: "CTD & eCTD", type: "video", duration: "22 min", completed: false, preview: false},
+                        {id: 3, title: "Ethics Committee Requirements", type: "video", duration: "14 min", completed: false, preview: false}
+                    ]
+                }
+            ];
+            
+            currentCourse = coursesData.find(c => c.id === courseId) || coursesData[0];
+            
+            // Load user's progress
+            enrolledCourses = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+            
+            renderCourseHeader();
+            renderEnrolCard();
+            renderCurriculum();
+            renderDescription();
+            renderQASection();
+            
+            // Check if user is enrolled
+            const isEnrolled = enrolledCourses.includes(currentCourse.id);
+            if (currentUser && currentUser.role === 'learner' && isEnrolled) {
+                updateProgressUI();
+            }
+        }
+        
+        function renderCourseHeader() {
+            document.getElementById('course-title').innerHTML = currentCourse.title;
+            document.getElementById('course-instructor').innerHTML = currentCourse.instructor;
+            document.getElementById('course-rating').innerHTML = currentCourse.rating;
+            document.getElementById('enrolled-count').innerHTML = `<i class="fas fa-users mr-1"></i> ${currentCourse.enrolled.toLocaleString()} enrolled`;
+            document.getElementById('completion-rate').innerHTML = `${currentCourse.completion}% completion rate`;
+            document.getElementById('course-duration').innerHTML = currentCourse.duration;
+            
+            const levelBadge = document.getElementById('course-level-badge');
+            levelBadge.innerHTML = currentCourse.level.toUpperCase();
+            
+            if (currentCourse.level === 'beginner') {
+                levelBadge.className = 'px-3 py-[3px] text-xs font-extrabold rounded-full bg-emerald-100 text-emerald-700';
+            } else if (currentCourse.level === 'intermediate') {
+                levelBadge.className = 'px-3 py-[3px] text-xs font-extrabold rounded-full bg-amber-100 text-amber-700';
+            } else {
+                levelBadge.className = 'px-3 py-[3px] text-xs font-extrabold rounded-full bg-slate-200 text-slate-700';
+            }
+            
+            document.getElementById('instructor-avatar').src = "assets/images/instructor.jpg";
+        }
+        
+        function renderEnrolCard() {
+            const container = document.getElementById('enrol-card');
+            const isEnrolled = enrolledCourses.includes(currentCourse.id);
+            const isLearner = currentUser && currentUser.role === 'learner';
+            
+            let html = '';
+            
+            if (!currentUser) {
+                html = `
+                    <div class="text-center">
+                        <div class="font-bold text-xl">Ready to begin?</div>
+                        <button onclick="showLoginModal()" class="mt-4 w-full py-[10px] bg-[#0F2744] text-white text-xs font-extrabold rounded-2xl">Login to Enrol</button>
+                    </div>
+                `;
+            } else if (currentUser.role === 'learner') {
+                if (isEnrolled) {
+                    html = `
+                        <div>
+                            <div class="text-xs font-bold px-1 text-emerald-700 flex items-center">
+                                <i class="fas fa-check-circle mr-1.5"></i> 
+                                <span>ENROLLED</span>
+                            </div>
+                            <div class="mt-2 flex items-center justify-between">
+                                <div class="font-extrabold text-2xl">${currentCourse.isFree ? 'FREE' : '₹' + currentCourse.price}</div>
+                                <button onclick="startLearning()" class="px-5 py-2 text-xs bg-emerald-700 text-white font-extrabold rounded-2xl px-4">Continue Learning</button>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    if (currentCourse.isFree) {
+                        html = `
+                            <div>
+                                <div class="font-extrabold text-xl">FREE</div>
+                                <div class="text-xs text-slate-500">Instant access</div>
+                                
+                                <button onclick="enrolFreeCourse()" class="mt-3 w-full py-[9px] bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs rounded-2xl">
+                                    Enrol Free
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        html = `
+                            <div>
+                                <div class="flex items-baseline">
+                                    <div class="font-extrabold text-xl">₹${currentCourse.price}</div>
+                                    <div class="text-xs ml-1 text-slate-500">/ $${Math.round(currentCourse.price / 84)}</div>
+                                </div>
+                                
+                                <button onclick="enrolPaidCourse()" class="mt-3 w-full py-[9px] bg-[#0F2744] hover:bg-[#1a3859] text-white font-extrabold text-xs rounded-2xl">
+                                    Enrol Now
+                                </button>
+                                <div class="mt-1 text-center text-[10px] text-emerald-600">30-day money-back guarantee</div>
+                            </div>
+                        `;
+                    }
+                }
+            } else if (currentUser.role === 'teacher' || currentUser.role === 'admin') {
+                html = `
+                    <div class="px-1">
+                        <div class="text-xs font-bold">You have access as ${currentUser.role}</div>
+                        <button onclick="window.location.href='dashboard-teacher.html'" class="mt-3 w-full py-[9px] px-5 text-xs font-extrabold bg-slate-800 text-white rounded-2xl">Go to Teacher Dashboard</button>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+        
+        function enrolFreeCourse() {
+            if (!currentUser || currentUser.role !== 'learner') {
+                showLoginModal();
+                return;
+            }
+            
+            let enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+            if (!enrolled.includes(currentCourse.id)) enrolled.push(currentCourse.id);
+            localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolled));
+            
+            enrolledCourses = enrolled;
+            
+            // Update UI
+            renderEnrolCard();
+            renderCurriculum();
+            
+            // Toast
+            const toast = document.createElement('div');
+            toast.style.cssText = 'position:fixed;bottom:16px;left:50%;transform:translate(-50%,0);background:#166534;color:white;font-size:0.75rem;padding:6px 15px;border-radius:9999px;';
+            toast.innerHTML = `Enrolled successfully!`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+                startLearning();
+            }, 1200);
+        }
+        
+        function enrolPaidCourse() {
+            if (!currentUser || currentUser.role !== 'learner') {
+                showLoginModal();
+                return;
+            }
+            
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[300]`;
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl max-w-md mx-4 w-full p-5">
+                    <div class="font-extrabold px-1">Complete your enrolment</div>
+                    
+                    <div class="mt-3 px-1 flex justify-between items-center">
+                        <div>
+                            <div>${currentCourse.title}</div>
+                            <div class="font-bold text-xl">₹${currentCourse.price}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <div class="text-xs px-1 font-bold">Choose payment method</div>
+                        
+                        <div class="mt-3 flex gap-2">
+                            <div onclick="processPaidEnrolment('razorpay', this)" class="flex-1 px-4 py-3 text-xs border hover:border-[#C9A34E] cursor-pointer rounded-2xl flex items-center justify-center font-semibold">Razorpay</div>
+                            <div onclick="processPaidEnrolment('stripe', this)" class="flex-1 px-4 py-3 text-xs border hover:border-[#C9A34E] cursor-pointer rounded-2xl flex items-center justify-center font-semibold">Stripe</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 px-1">
+                        <button onclick="this.closest('.fixed').remove()" class="px-5 py-1 text-xs w-full text-center font-extrabold border text-slate-600 rounded-2xl">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function processPaidEnrolment(gateway, el) {
+            el.innerHTML = `<span class="flex items-center justify-center gap-2"><i class="fas fa-spinner fa-spin"></i> Processing...</span>`;
+            
+            setTimeout(() => {
+                let enrolled = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
+                if (!enrolled.includes(currentCourse.id)) enrolled.push(currentCourse.id);
+                localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolled));
+                
+                let payments = JSON.parse(localStorage.getItem('ccrest_payments') || '[]');
+                payments.push({
+                    id: Date.now(),
+                    courseId: currentCourse.id,
+                    amount: currentCourse.price,
+                    gateway: gateway,
+                    date: new Date().toISOString(),
+                    userId: currentUser.id,
+                    status: 'paid',
+                    transactionId: 'txn_' + Math.random().toString(36).substr(2, 9)
+                });
+                localStorage.setItem('ccrest_payments', JSON.stringify(payments));
+                
+                el.closest('.fixed').remove();
+                
+                const success = document.createElement('div');
+                success.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[300]`;
+                success.innerHTML = `
+                    <div class="bg-white rounded-3xl px-6 py-6 w-full max-w-sm mx-4 text-center">
+                        <i class="fas fa-check-circle text-emerald-600 text-3xl"></i>
+                        <div class="mt-3 font-extrabold">Payment successful!</div>
+                        <div class="text-xs mt-1">Welcome to the course.</div>
+                        <button onclick="window.location.reload()" class="mt-4 text-xs px-5 py-[8px] bg-emerald-700 text-white font-extrabold rounded-2xl w-full">Start Learning</button>
+                    </div>
+                `;
+                document.body.appendChild(success);
+            }, 1600);
+        }
+        
+        function renderCurriculum() {
+            const container = document.getElementById('curriculum-container');
+            const isEnrolled = enrolledCourses.includes(currentCourse.id) || (currentUser && (currentUser.role === 'teacher' || currentUser.role === 'admin'));
+            
+            let html = `<div class="divide-y">`;
+            
+            currentCourse.lessonsList.forEach((lesson, index) => {
+                const completed = lesson.completed;
+                const locked = !isEnrolled && !lesson.preview;
+                
+                let icon = '';
+                if (lesson.type === 'video') icon = `<i class="fas fa-play text-emerald-500 w-4"></i>`;
+                else if (lesson.type === 'quiz') icon = `<i class="fas fa-question-circle text-amber-500 w-4"></i>`;
+                else icon = `<i class="fas fa-file-pdf text-slate-500 w-4"></i>`;
+                
+                html += `
+                    <div onclick="${locked ? '' : `openLesson(${index})`}" class="lesson-item px-4 py-[10px] flex items-center justify-between cursor-pointer rounded-2xl ${locked ? 'curriculum-locked' : ''}">
+                        <div class="flex items-center gap-x-3">
+                            <div class="flex items-center justify-center w-5">${icon}</div>
+                            
+                            <div>
+                                <div class="font-semibold text-sm">${lesson.title}</div>
+                                <div class="flex items-center text-xs text-slate-400">
+                                    <span>${lesson.duration}</span>
+                                    ${lesson.preview ? `<span class="ml-2 px-1.5 rounded text-[10px] py-px bg-emerald-100 text-emerald-700">Preview</span>` : ''}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            ${completed ? `<i class="fas fa-check-circle text-emerald-600 mr-1"></i>` : ''}
+                            ${locked ? `<i class="fas fa-lock text-slate-300 mr-1"></i>` : ''}
+                            
+                            ${isEnrolled ? `
+                                <div class="px-2 py-px text-xs font-bold text-emerald-700">${lesson.completed ? 'Done' : ''}</div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            container.innerHTML = html;
+            
+            // Update progress text if enrolled
+            const progressText = document.getElementById('progress-text');
+            if (isEnrolled) {
+                const completedLessons = currentCourse.lessonsList.filter(l => l.completed).length;
+                progressText.innerHTML = `${completedLessons}/${currentCourse.lessonsList.length} lessons complete`;
+            } else {
+                progressText.innerHTML = `Enrol to unlock full curriculum`;
+            }
+        }
+        
+        function renderDescription() {
+            document.getElementById('course-description').innerHTML = currentCourse.description;
+            document.getElementById('lesson-count').innerHTML = currentCourse.lessonsList.length;
+        }
+        
+        function renderQASection() {
+            const container = document.getElementById('qa-section');
+            
+            let html = `
+                <div class="space-y-4 text-sm">
+                    <div class="px-1">
+                        <div class="font-medium">How do I access the study documents?</div>
+                        <div class="text-xs text-slate-500">Answered by Dr. Ananya Rao • 2 days ago</div>
+                        <div class="text-xs mt-1 px-2 py-1 bg-slate-50 rounded">All lesson materials are available within each lesson page.</div>
+                    </div>
+                    
+                    <div class="px-1">
+                        <div class="font-medium">Is this course accredited?</div>
+                        <div class="text-xs text-slate-500">Answered by Dr. Ananya Rao • Jan 14</div>
+                        <div class="text-xs mt-1 px-2 py-1 bg-slate-50 rounded">Yes. The certificate is recognized by ISCR and other professional bodies.</div>
+                    </div>
+                </div>
+            `;
+            
+            container.innerHTML = html;
+        }
+        
+        function openLesson(lessonIndex) {
+            const isEnrolled = enrolledCourses.includes(currentCourse.id) || (currentUser && (currentUser.role === 'teacher' || currentUser.role === 'admin'));
+            const lesson = currentCourse.lessonsList[lessonIndex];
+            
+            if (!isEnrolled && !lesson.preview) {
+                alert("You must enrol in this course to access this lesson.");
+                return;
+            }
+            
+            currentLessonIndex = lessonIndex;
+            
+            const modal = document.getElementById('lesson-modal');
+            const titleEl = document.getElementById('modal-lesson-title');
+            const contentEl = document.getElementById('lesson-content');
+            
+            titleEl.innerHTML = lesson.title;
+            
+            let contentHTML = '';
+            
+            if (lesson.type === 'video') {
+                contentHTML = `
+                    <div class="bg-black rounded-2xl overflow-hidden aspect-video relative">
+                        <!-- YouTube unlisted embed simulation -->
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9wg9cQ?autoplay=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        
+                        <div class="absolute top-2 left-2 px-2 py-[1px] bg-black/70 text-white text-xs rounded px-3 flex items-center gap-x-1">
+                            <span class="text-emerald-400">•</span> <span class="text-xs">YouTube Unlisted</span>
+                        </div>
+                        
+                        <div class="absolute bottom-3 right-3 bg-black/70 px-2.5 py-[1px] text-white text-xs rounded flex items-center">
+                            <span>Protected</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 px-1 flex items-center justify-between text-xs">
+                        <div class="text-emerald-700 font-medium flex items-center"><i class="fas fa-check mr-1"></i> <span>Lesson progress: 100%</span></div>
+                        <div class="font-medium text-xs">Duration: ${lesson.duration}</div>
+                    </div>
+                `;
+            } else if (lesson.type === 'quiz') {
+                contentHTML = `
+                    <div class="px-1">
+                        <div class="font-extrabold">Quiz: ${lesson.title}</div>
+                        <div class="text-xs text-slate-500 mt-1">10 questions • 20 minutes</div>
+                        
+                        <div class="mt-4 border rounded-2xl p-3">
+                            <div class="px-1">
+                                <div class="text-xs font-bold mb-3">Sample Question 1:</div>
+                                <div class="text-sm">What is the primary purpose of GCP?</div>
+                                
+                                <div class="mt-3 space-y-1.5">
+                                    <div class="px-3 py-2 border rounded-2xl text-xs flex items-center"><input type="radio" class="mr-2"> To protect patient safety and data integrity</div>
+                                    <div class="px-3 py-2 border rounded-2xl text-xs flex items-center"><input type="radio" class="mr-2"> To speed up clinical trials</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 flex">
+                            <button onclick="submitQuizDemo()" class="px-6 py-2 text-xs font-extrabold bg-[#0F2744] text-white rounded-2xl">Submit Quiz</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Document
+                contentHTML = `
+                    <div>
+                        <div class="px-1">
+                            <div class="text-xs px-2 py-1 bg-amber-100 text-amber-700 w-fit font-bold px-3 rounded-full">DOCUMENT</div>
+                            <div class="mt-4 font-medium">This lesson contains a downloadable PDF.</div>
+                            
+                            <div class="mt-4 border px-3 py-5 rounded-2xl bg-slate-50">
+                                <div class="flex items-center gap-x-3 px-3">
+                                    <i class="fas fa-file-pdf text-red-500 text-4xl"></i>
+                                    <div>
+                                        <div class="font-semibold">Regulatory Overview - India.pdf</div>
+                                        <div class="text-xs mt-0.5">24 pages • 1.4 MB</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3 px-1 text-xs">
+                                <div onclick="viewPDFDemo()" class="cursor-pointer flex items-center gap-x-2 text-emerald-600 font-extrabold">
+                                    <i class="fas fa-eye"></i> 
+                                    <span>View in Google Drive embed (protected)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            contentEl.innerHTML = contentHTML;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+        
+        function hideLessonModal() {
+            const modal = document.getElementById('lesson-modal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+        
+        function markLessonComplete() {
+            const lesson = currentCourse.lessonsList[currentLessonIndex];
+            lesson.completed = true;
+            
+            // Save to localStorage
+            let progress = JSON.parse(localStorage.getItem('ccrest_course_progress') || '{}');
+            if (!progress[currentCourse.id]) progress[currentCourse.id] = [];
+            if (!progress[currentCourse.id].includes(lesson.id)) progress[currentCourse.id].push(lesson.id);
+            localStorage.setItem('ccrest_course_progress', JSON.stringify(progress));
+            
+            // Refresh
+            hideLessonModal();
+            renderCurriculum();
+            updateProgressUI();
+            
+            // Award certificate if complete
+            const completedCount = currentCourse.lessonsList.filter(l => l.completed).length;
+            if (completedCount === currentCourse.lessonsList.length) {
+                setTimeout(() => {
+                    showCertificateModal();
+                }, 800);
+            }
+        }
+        
+        function updateProgressUI() {
+            const progressText = document.getElementById('progress-text');
+            if (!progressText) return;
+            
+            const completedLessons = currentCourse.lessonsList.filter(l => l.completed).length;
+            const total = currentCourse.lessonsList.length;
+            
+            progressText.innerHTML = `${completedLessons}/${total} lessons complete`;
+            
+            // Optional progress bar
+            if (!document.getElementById('progress-bar-wrapper')) {
+                const container = document.getElementById('curriculum-container');
+                const barHTML = `<div id="progress-bar-wrapper" class="mt-2 px-4"><div class="h-[3px] bg-slate-200 rounded"><div class="h-[3px] bg-emerald-600 rounded progress-bar" style="width: ${Math.round((completedLessons / total) * 100)}%"></div></div></div>`;
+                container.insertAdjacentHTML('beforeend', barHTML);
+            } else {
+                const bar = document.querySelector('#progress-bar-wrapper .progress-bar');
+                if (bar) bar.style.width = Math.round((completedLessons / total) * 100) + '%';
+            }
+        }
+        
+        function submitQuizDemo() {
+            const modalContent = document.getElementById('lesson-content');
+            modalContent.innerHTML = `
+                <div class="px-1">
+                    <div class="font-extrabold">Quiz Submitted</div>
+                    <div class="mt-3 text-sm">Score: 90%</div>
+                    <div class="mt-1 text-xs">You passed! Certificate will be issued once all lessons are completed.</div>
+                    
+                    <button onclick="markLessonComplete(); hideLessonModal()" class="mt-4 px-5 text-xs py-2 font-extrabold bg-emerald-600 text-white rounded-2xl">Mark complete</button>
+                </div>
+            `;
+        }
+        
+        function viewPDFDemo() {
+            const modalContent = document.getElementById('lesson-content');
+            modalContent.innerHTML = `
+                <div class="px-1">
+                    <div class="mb-2 flex items-center justify-between">
+                        <div class="font-bold">PDF Viewer (Google Drive embed)</div>
+                        <button onclick="hideLessonModal()" class="text-xs px-3">Close</button>
+                    </div>
+                    
+                    <div class="border bg-white rounded-xl overflow-hidden">
+                        <div class="px-4 py-3 bg-slate-100 text-xs flex justify-between items-center">
+                            <div>Regulatory Overview - India.pdf</div>
+                            <div class="text-emerald-700 font-bold text-xs">Protected</div>
+                        </div>
+                        <div class="p-2 bg-slate-50">
+                            <div style="height: 240px; background: linear-gradient(#f8fafc, #e0e7ff); padding: 10px; font-size: 12px; line-height:1.3" class="text-slate-700">
+                                <div class="font-bold">Section 1.1</div>
+                                <div class="text-xs mt-1">Clinical trial application must be submitted to CDSCO...</div>
+                                
+                                <div class="mt-4 text-xs">Note: This is a simulated embed. In production: iframe from Google Drive with &amp;rm=minimal to prevent direct downloads.</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-3 text-center">
+                        <button onclick="markLessonComplete()" class="px-4 py-[6px] text-xs font-bold text-emerald-700">Mark as complete</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function showCertificateModal() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[310]`;
+            modal.innerHTML = `
+                <div class="max-w-[460px] w-full mx-4 bg-white rounded-3xl overflow-hidden shadow-2xl">
+                    <div class="px-5 py-4 bg-gradient-to-r from-[#0F2744] to-[#1a3859] text-white flex justify-between items-center">
+                        <div>
+                            <div class="font-bold">Certificate Issued</div>
+                            <div class="text-xs opacity-75">CCREST • Official</div>
+                        </div>
+                        <div onclick="this.closest('.fixed').remove()" class="cursor-pointer text-xl px-2 leading-none">&times;</div>
+                    </div>
+                    
+                    <div class="p-5 bg-white">
+                        <div class="border-2 border-emerald-200 rounded-2xl overflow-hidden">
+                            <img src="assets/images/certificate-sample.jpg" class="w-full" alt="CCREST Certificate">
+                            
+                            <div class="px-4 py-3 bg-white text-center border-t">
+                                <div class="text-xs font-bold text-emerald-700">This certificate has been issued to</div>
+                                <div class="font-extrabold text-xl mt-1">${currentUser ? currentUser.name : 'Aarav Mehta'}</div>
+                                <div class="text-sm mt-0.5">${currentCourse.title}</div>
+                                <div class="text-xs text-slate-500 mt-1">Issued: ${new Date().toLocaleDateString('en-IN')}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="px-5 pb-5 pt-2 flex gap-x-2 bg-white">
+                        <button onclick="downloadCertificate(); this.closest('.fixed').remove()" 
+                                class="flex-1 bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-extrabold py-[9px] rounded-2xl">
+                            Download PDF Certificate
+                        </button>
+                        <button onclick="this.closest('.fixed').remove()" 
+                                class="flex-1 text-xs font-bold py-[9px] border rounded-2xl">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function downloadCertificate() {
+            // Simulate PDF download
+            const link = document.createElement('a');
+            link.href = '#';
+            link.download = `${currentCourse.title.replace(/\s+/g, '-')}-certificate.pdf`;
+            
+            const toast = document.createElement('div');
+            toast.style.cssText = `position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#166534;color:white;padding:7px 16px;border-radius:9999px;font-size:0.75rem`;
+            toast.innerHTML = `Certificate downloaded (simulated).`;
+            document.body.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.remove();
+            }, 2500);
+        }
+        
+        function startLearning() {
+            const firstIncomplete = currentCourse.lessonsList.findIndex(l => !l.completed);
+            if (firstIncomplete !== -1) {
+                openLesson(firstIncomplete);
+            } else {
+                openLesson(0);
+            }
+        }
+        
+        function nextLesson() {
+            hideLessonModal();
+            if (currentLessonIndex < currentCourse.lessonsList.length - 1) {
+                setTimeout(() => {
+                    openLesson(currentLessonIndex + 1);
+                }, 150);
+            }
+        }
+        
+        function prevLesson() {
+            hideLessonModal();
+            if (currentLessonIndex > 0) {
+                setTimeout(() => {
+                    openLesson(currentLessonIndex - 1);
+                }, 150);
+            }
+        }
+        
+        function joinLiveSession() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 flex items-center justify-center z-[310] bg-black/70`;
+            
+            modal.innerHTML = `
+                <div class="max-w-sm w-full mx-4 bg-white rounded-3xl px-5 py-5">
+                    <div>
+                        <span class="px-3 py-1 bg-emerald-700 text-white text-xs font-bold rounded-full px-3">LIVE</span>
+                    </div>
+                    
+                    <div class="mt-3 font-bold">Live Q&amp;A: Clinical Trial Management</div>
+                    <div class="text-xs">Hosted by Dr. Vikram Sharma • 40 min remaining</div>
+                    
+                    <div class="mt-4 text-xs">
+                        <a href="https://meet.google.com/demo-ccrest" target="_blank" class="flex items-center justify-center px-5 py-2 bg-emerald-700 rounded-2xl text-white text-xs font-extrabold gap-x-2">
+                            <i class="fas fa-video"></i> <span>Join Google Meet (Free)</span>
+                        </a>
+                    </div>
+                    
+                    <div class="text-center mt-3 text-xs text-slate-500">Link sent to your email • Session recorded for enrolled learners</div>
+                    
+                    <button onclick="this.closest('.fixed').remove()" class="w-full text-xs py-2 font-bold mt-4">Close</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function showAskQuestionModal() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/70 flex items-center justify-center z-[300]`;
+            
+            modal.innerHTML = `
+                <div class="bg-white w-full max-w-md mx-4 rounded-3xl p-5">
+                    <div class="font-extrabold">Ask a question</div>
+                    <div class="text-xs mt-1 text-slate-500">Your question will be visible to enrolled learners and the instructor.</div>
+                    
+                    <div class="mt-4">
+                        <textarea class="w-full px-3 py-3 text-sm border rounded-2xl" rows="3" placeholder="What would you like to know about this topic?"></textarea>
+                    </div>
+                    
+                    <div class="mt-4 flex gap-x-3">
+                        <button onclick="submitQuestion(this)" class="flex-1 bg-[#0F2744] text-white px-5 text-xs font-extrabold py-2 rounded-2xl">Post Question</button>
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 px-5 border text-xs font-bold py-2 rounded-2xl">Cancel</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function submitQuestion(btn) {
+            btn.innerHTML = `Posted!`;
+            setTimeout(() => {
+                btn.closest('.fixed').remove();
+                
+                // Refresh Q&A
+                const qa = document.getElementById('qa-section');
+                qa.innerHTML = `
+                    <div class="px-1">
+                        <div class="px-2 py-2 bg-emerald-50 rounded-2xl">
+                            <div class="text-xs font-bold">Thank you. Your question has been posted.</div>
+                            <div class="text-xs mt-1">Instructor will reply within 24 hours.</div>
+                        </div>
+                    </div>
+                `;
+            }, 1200);
+        }
+        
+        function showLoginModal() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/60 flex items-center justify-center z-[300]`;
+            
+            modal.innerHTML = `
+                <div class="bg-white w-full max-w-sm mx-4 rounded-3xl p-5">
+                    <div class="px-1 font-extrabold">Login to access course</div>
+                    
+                    <div class="mt-4">
+                        <input id="modal-email" value="learner@demo.ccrest.in" class="w-full px-4 py-2 text-sm border rounded-2xl">
+                        <input type="password" value="demo123" class="mt-3 w-full px-4 py-2 text-sm border rounded-2xl">
+                        
+                        <button onclick="quickEnrolLogin(this)" class="w-full mt-4 py-[10px] bg-[#0F2744] text-white font-extrabold text-sm rounded-2xl">Login &amp; Continue</button>
+                    </div>
+                    
+                    <div class="mt-3 text-center text-xs">Or <span onclick="quickEnrolLogin(this, true)" class="font-bold cursor-pointer text-[#0F2744]">register for free</span></div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+        }
+        
+        function quickEnrolLogin(element, isRegister = false) {
+            const modal = element.closest('.fixed');
+            
+            currentUser = {
+                id: 101,
+                name: "Aarav Mehta",
+                email: "learner@demo.ccrest.in",
+                role: "learner",
+                joined: "2025-11-03"
+            };
+            
+            localStorage.setItem('ccrest_user', JSON.stringify(currentUser));
+            
+            modal.remove();
+            
+            // Enrol if needed
+            setTimeout(() => {
+                if (!enrolledCourses.includes(currentCourse.id)) {
+                    enrolledCourses.push(currentCourse.id);
+                    localStorage.setItem('ccrest_enrolled_courses', JSON.stringify(enrolledCourses));
+                }
+                window.location.reload();
+            }, 300);
+        }
+        
+        function showUserDropdown() {
+            if (!currentUser) {
+                showLoginModal();
+                return;
+            }
+            
+            const existing = document.querySelector('.user-dropdown');
+            if (existing) existing.remove();
+            
+            const dropdown = document.createElement('div');
+            dropdown.className = `user-dropdown absolute bg-white border shadow-lg rounded-2xl w-56 py-1 mt-1 right-6 z-[300]`;
+            
+            let inner = `
+                <div class="px-4 py-2 border-b">
+                    <div class="font-bold">${currentUser.name}</div>
+                    <div class="text-xs">${currentUser.email}</div>
+                </div>
+            `;
+            
+            if (currentUser.role === 'learner') {
+                inner += `<a href="dashboard-learner.html" class="px-4 py-[7px] flex items-center text-xs hover:bg-slate-50"><i class="fas fa-tachometer-alt w-4 mr-2"></i> My Dashboard</a>`;
+            } else if (currentUser.role === 'teacher') {
+                inner += `<a href="dashboard-teacher.html" class="px-4 py-[7px] flex items-center text-xs hover:bg-slate-50"><i class="fas fa-chalkboard-teacher w-4 mr-2"></i> Teacher Dashboard</a>`;
+            }
+            
+            inner += `<div class="px-4 py-2 text-xs border-t"><span onclick="logout()" class="cursor-pointer flex items-center"><i class="fas fa-sign-out-alt w-3.5 mr-2"></i> Logout</span></div>`;
+            
+            dropdown.innerHTML = inner;
+            document.body.appendChild(dropdown);
+            
+            setTimeout(() => {
+                document.addEventListener('click', function closeHandler(ev) {
+                    if (!dropdown.contains(ev.target)) {
+                        dropdown.remove();
+                        document.removeEventListener('click', closeHandler);
+                    }
+                }, { once: true });
+            }, 80);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ccrest_user');
+            window.location.href = 'index.html';
+        }
+        
+        function checkLogin() {
+            const saved = localStorage.getItem('ccrest_user');
+            if (saved) {
+                currentUser = JSON.parse(saved);
+            }
+            
+            // Update nav user
+            const navUser = document.getElementById('nav-user');
+            if (currentUser) {
+                navUser.innerHTML = `
+                    <div class="flex items-center gap-x-2">
+                        <img src="https://i.pravatar.cc/22?img=28" class="w-[22px] h-[22px] rounded-full">
+                        <span class="font-bold text-sm">${currentUser.name.split(' ')[0]}</span>
+                    </div>
+                `;
+            } else {
+                navUser.innerHTML = `<span class="px-4 py-1 text-xs font-bold border rounded-full">Login</span>`;
+                navUser.onclick = showLoginModal;
+            }
+        }
+        
+        function updateNavForUser() {
+            // handled in checkLogin
+        }
+        
+        function initializeCourseDetail() {
+            initializeTailwind();
+            checkLogin();
+            loadCourseData();
+            
+            // Demo note
+            setTimeout(() => {
+                console.log('%c[CCREST] Course detail page loaded — full Tutor LMS simulation.', 'color:#64748b;font-size:9px');
+            }, 800);
+            
+            // Add protection
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+            });
+        }
+        
+        window.onload = initializeCourseDetail;
+    </script>
+</body>
+</html>

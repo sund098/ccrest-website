@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard — CCREST</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', system_ui, sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50">
+    <div class="bg-[#0F2744] py-2 text-xs text-white px-6">
+        <div class="max-w-screen-2xl mx-auto flex justify-between">
+            <span>Teacher Dashboard • CCREST</span>
+            <span onclick="logout()" class="cursor-pointer">Logout</span>
+        </div>
+    </div>
+    
+    <div class="max-w-screen-2xl mx-auto px-6 pt-6">
+        <div class="flex items-center justify-between">
+            <div>
+                <div class="font-extrabold text-3xl">Teacher Dashboard</div>
+                <div id="teacher-welcome" class="text-lg font-semibold text-[#0F2744]"></div>
+            </div>
+            <div>
+                <a href="courses.html" class="px-4 py-2 px-5 text-xs bg-white border rounded-2xl font-bold">View Course Catalogue</a>
+            </div>
+        </div>
+        
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-5">
+            
+            <!-- My Courses -->
+            <div class="md:col-span-2">
+                <div class="font-extrabold mb-3 px-1">My Assigned Courses</div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 border rounded-3xl">
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="font-extrabold">Clinical Trial Management</div>
+                                <div class="text-xs">1,129 learners</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-emerald-600 text-xs font-bold">88%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 flex gap-2">
+                            <button onclick="window.location.href='course-detail.html?id=2'" class="text-xs px-4 py-2 bg-[#0F2744] text-white rounded-2xl px-5 text-center font-bold">Manage Course</button>
+                            <button onclick="viewEnrolledLearners()" class="text-xs px-4 py-[7px] border rounded-2xl px-3 font-bold">View Learners</button>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-4 border rounded-3xl">
+                        <div class="flex justify-between">
+                            <div>
+                                <div class="font-extrabold">Good Clinical Practice Essentials</div>
+                                <div class="text-xs">2,461 learners</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-emerald-600 text-xs font-bold">91%</div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3 flex gap-2">
+                            <button onclick="window.location.href='course-detail.html?id=3'" class="text-xs px-4 py-2 bg-[#0F2744] text-white rounded-2xl px-5 text-center font-bold">Manage Course</button>
+                            <button onclick="viewEnrolledLearners()" class="text-xs px-4 py-[7px] border rounded-2xl px-3 font-bold">View Learners</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <div class="font-extrabold px-1 mb-2">Quick Actions</div>
+                <div class="space-y-3">
+                    <div onclick="sendAnnouncement()" class="cursor-pointer flex px-4 py-3 bg-white border rounded-3xl items-center gap-x-3 text-sm">
+                        <i class="fas fa-bullhorn text-xl w-5"></i> 
+                        <div>
+                            <div class="font-bold">Send announcement</div>
+                            <div class="text-xs">To enrolled learners</div>
+                        </div>
+                    </div>
+                    
+                    <div onclick="window.location.href='course-detail.html?id=2'" class="cursor-pointer flex px-4 py-3 bg-white border rounded-3xl items-center gap-x-3 text-sm">
+                        <i class="fas fa-plus text-xl w-5"></i> 
+                        <div>
+                            <div class="font-bold">Add new lesson</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="md:col-span-3 mt-2">
+                <div class="font-extrabold mb-2 px-1">Recent Learner Activity</div>
+                <div class="bg-white border rounded-3xl p-4 text-sm">
+                    <div class="flex items-center justify-between px-2 py-1">
+                        <div><span class="font-bold">Ritu Patel</span> completed lesson 4</div>
+                        <div class="text-xs text-emerald-600">2h ago</div>
+                    </div>
+                    <div class="flex items-center justify-between px-2 py-1">
+                        <div><span class="font-bold">Arjun Menon</span> submitted quiz (92%)</div>
+                        <div class="text-xs text-emerald-600">Yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentUser = null;
+        
+        function checkUser() {
+            const saved = localStorage.getItem('ccrest_user');
+            if (saved) currentUser = JSON.parse(saved);
+            
+            if (!currentUser || currentUser.role !== 'teacher') {
+                window.location.href = 'index.html';
+            }
+            
+            document.getElementById('teacher-welcome').innerHTML = `Hello, ${currentUser.name}`;
+        }
+        
+        function viewEnrolledLearners() {
+            alert('In real Tutor LMS: This would open the enrolled learners list with progress tracking and messaging.\n\nDemo: 47 learners enrolled in Clinical Trial Management.');
+        }
+        
+        function sendAnnouncement() {
+            const modal = document.createElement('div');
+            modal.className = `fixed inset-0 bg-black/60 flex items-center justify-center z-[300]`;
+            modal.innerHTML = `
+                <div class="bg-white rounded-3xl p-5 max-w-md w-full mx-4">
+                    <div class="font-extrabold">Send Announcement</div>
+                    <textarea class="w-full mt-3 border px-4 py-2 text-sm rounded-2xl" rows="3" placeholder="Message to all enrolled learners..."></textarea>
+                    
+                    <div class="mt-3 flex">
+                        <button onclick="this.closest('.fixed').remove()" class="flex-1 text-xs py-[8px] font-bold">Cancel</button>
+                        <button onclick="sendAnnouncementAction(this)" class="flex-1 text-xs py-[8px] font-extrabold bg-[#0F2744] text-white rounded-2xl">Send</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        function sendAnnouncementAction(el) {
+            el.innerHTML = `Sent!`;
+            setTimeout(() => {
+                el.closest('.fixed').remove();
+                const toast = document.createElement('div');
+                toast.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#166534;color:white;padding:7px 15px;border-radius:9999px;font-size:0.7rem';
+                toast.innerHTML = 'Announcement sent to all enrolled learners.';
+                document.body.appendChild(toast);
+                setTimeout(() => toast.remove(), 2500);
+            }, 900);
+        }
+        
+        function logout() {
+            localStorage.removeItem('ccrest_user');
+            window.location.href = 'index.html';
+        }
+        
+        window.onload = function() {
+            checkUser();
+        }
+    </script>
+</body>
+</html>

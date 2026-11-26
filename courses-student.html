@@ -251,7 +251,7 @@
 </div>
 
     <script>
-const API_URL = "http://localhost:5000/api/courses";
+const API_URL = "https://ccrest-website.onrender.com/api/courses";
 
 async function loadCourses() {
     const courseList = document.getElementById("courseList");
@@ -383,7 +383,7 @@ async function processEnrollment(event) {
         }
 
         // Step 2: Save enrollment
-        const enrollmentResponse = await fetch("http://localhost:5000/api/enrollments", {
+        const enrollmentResponse = await fetch("https://ccrest-website.onrender.com/api/enrollments", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -406,7 +406,7 @@ async function processEnrollment(event) {
         const enrollmentId = enrollmentResult.enrollment._id;
 
         // Step 3: Create Razorpay order
-        const orderResponse = await fetch("http://localhost:5000/api/payment/create-order", {
+        const orderResponse = await fetch("https://ccrest-website.onrender.com/api/payment/create-order", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -444,7 +444,7 @@ async function processEnrollment(event) {
 
           handler: async function (paymentResponse) {
     try {
-        const verifyResponse = await fetch("http://localhost:5000/api/payment/verify", {
+        const verifyResponse = await fetch("https://ccrest-website.onrender.com/api/payment/verify", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

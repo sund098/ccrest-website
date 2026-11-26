@@ -512,7 +512,7 @@ async function loadProgress() {
 
     try {
         const response = await fetch(
-            "http://localhost:5000/api/progress?studentEmail="
+            "https://ccrest-website.onrender.com/api/progress?studentEmail="
             + encodeURIComponent(studentEmail)
             + "&courseName="
             + encodeURIComponent(courseName)
@@ -569,7 +569,7 @@ async function markCompleted(moduleNumber) {
     }
 
     try {
-        const response = await fetch("http://localhost:5000/api/progress", {
+        const response = await fetch("https://ccrest-website.onrender.com/api/progress", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

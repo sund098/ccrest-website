@@ -22,8 +22,15 @@ const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware
+// Middleware
 app.use(cors({
-    origin: "*"
+    origin: [
+        'https://ccrest-website.netlify.app',
+        'http://localhost:5500',
+        'http://127.0.0.1:5500'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());

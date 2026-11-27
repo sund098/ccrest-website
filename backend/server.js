@@ -24,12 +24,12 @@ const MONGO_URI = process.env.MONGO_URI;
 // Middleware
 app.use(cors({
     origin: [
-        'http://127.0.0.1:5500',
-        'http://localhost:5500',
-        'https://ccrest-website.netlify.app'
+        "https://ccrest-website.netlify.app",
+        "http://127.0.0.1:5500",
+        "http://localhost:5500"
     ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 app.use(express.json());
 
@@ -69,6 +69,28 @@ app.get('/api/courses', async (req, res) => {
         });
     }
 });
+
+
+// GET a single course by ID
+app.get('/api/courses/:id', async (req, res) => {
+    try {
+        const course = await Course.findById(req.params.id);
+
+        if (!course) {
+            return res.status(404).json({
+                message: 'Course not found'
+            });
+        }
+
+        res.json(course);
+    } catch (error) {
+        res.status(500).json({
+            message: 'Failed to fetch course',
+            error: error.message
+        });
+    }
+});
+
 
 // POST create course
 app.post('/api/courses', async (req, res) => {

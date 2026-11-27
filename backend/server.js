@@ -23,13 +23,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 // Middleware
 app.use(cors({
-    origin: [
-        "https://ccrest-website.netlify.app",
-        "http://127.0.0.1:5500",
-        "http://localhost:5500"
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    origin: "*"
 }));
 
 app.use(express.json());

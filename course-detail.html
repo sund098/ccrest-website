@@ -216,93 +216,88 @@
             tailwind.config = { theme: { extend: {} } };
         }
         
-        function getCourseIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            return parseInt(urlParams.get('id')) || 1;
-        }
+     function getCourseIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('id') || '1';
+}
         
-        function loadCourseData() {
-            const courseId = getCourseIdFromUrl();
-            
-            // Hardcoded data (in production this would come from Tutor LMS)
-            const coursesData = [
-                {
-                    id: 1, title: "Introduction to Clinical Research", price: 0, isFree: true, level: "beginner", 
-                    duration: "8 weeks", enrolled: 3280, rating: 4.9, instructor: "Dr. Ananya Rao",
-                    thumbnail: "assets/images/course-intro.jpg",
-                    description: "A comprehensive introduction to clinical research principles, ethics and methodology. Perfect for new professionals entering the field.",
-                    lessons: 32, completion: 96, students: 3280,
-                    lessonsList: [
-                        {id: 1, title: "What is Clinical Research?", type: "video", duration: "14 min", completed: true, preview: true},
-                        {id: 2, title: "History & Evolution of Clinical Trials", type: "video", duration: "22 min", completed: true, preview: true},
-                        {id: 3, title: "Ethics and Informed Consent", type: "video", duration: "17 min", completed: false, preview: true},
-                        {id: 4, title: "Regulatory Framework in India", type: "video", duration: "25 min", completed: false, preview: false},
-                        {id: 5, title: "Study Design Fundamentals", type: "video", duration: "19 min", completed: false, preview: false},
-                        {id: 6, title: "Introduction to GCP", type: "video", duration: "15 min", completed: false, preview: false},
-                        {id: 7, title: "Quiz: Foundations", type: "quiz", duration: "10 min", completed: false, preview: false},
-                    ]
-                },
-                {
-                    id: 2, title: "Clinical Trial Management", price: 4999, isFree: false, level: "intermediate", 
-                    duration: "6 weeks", enrolled: 1129, rating: 4.8, instructor: "Dr. Vikram Sharma",
-                    thumbnail: "assets/images/course-clinical.jpg",
-                    description: "Master the end-to-end management of clinical trials from protocol to close-out. Includes live Q&A sessions with industry experts.",
-                    lessons: 24, completion: 88, students: 1129,
-                    lessonsList: [
-                        {id: 1, title: "Trial Planning & Protocol Development", type: "video", duration: "28 min", completed: true, preview: true},
-                        {id: 2, title: "Site Selection & Feasibility", type: "video", duration: "19 min", completed: true, preview: true},
-                        {id: 3, title: "Patient Recruitment Strategies", type: "video", duration: "16 min", completed: false, preview: false},
-                        {id: 4, title: "Data Monitoring & Safety", type: "video", duration: "31 min", completed: false, preview: false},
-                        {id: 5, title: "Regulatory Submissions", type: "document", duration: "N/A", completed: false, preview: false},
-                        {id: 6, title: "Final Assessment", type: "quiz", duration: "30 min", completed: false, preview: false},
-                    ]
-                },
-                {
-                    id: 3, title: "Good Clinical Practice (GCP) Essentials", price: 2999, isFree: false, level: "intermediate", 
-                    duration: "4 weeks", enrolled: 2461, rating: 4.9, instructor: "Prof. Meera Iyer",
-                    thumbnail: "assets/images/course-clinical.jpg",
-                    description: "Essential GCP training aligned with ICH E6(R3) guidelines for all clinical research professionals.",
-                    lessons: 18, completion: 91, students: 2461,
-                    lessonsList: [
-                        {id: 1, title: "ICH GCP Guidelines Overview", type: "video", duration: "24 min", completed: true, preview: true},
-                        {id: 2, title: "Roles & Responsibilities", type: "video", duration: "15 min", completed: false, preview: true},
-                        {id: 3, title: "Informed Consent Process", type: "video", duration: "18 min", completed: false, preview: false},
-                        {id: 4, title: "Safety Reporting", type: "document", duration: "N/A", completed: false, preview: false},
-                        {id: 5, title: "GCP Quiz", type: "quiz", duration: "15 min", completed: false, preview: false}
-                    ]
-                },
-                {
-                    id: 4, title: "Regulatory Affairs in India", price: 3499, isFree: false, level: "intermediate", 
-                    duration: "5 weeks", enrolled: 774, rating: 4.7, instructor: "Dr. Sanjay Malhotra",
-                    thumbnail: "assets/images/course-intro.jpg",
-                    description: "Navigate the Indian regulatory environment for drugs, devices and clinical trials.",
-                    lessons: 22, completion: 79, students: 774,
-                    lessonsList: [
-                        {id: 1, title: "Overview of CDSCO", type: "video", duration: "19 min", completed: false, preview: true},
-                        {id: 2, title: "CTD & eCTD", type: "video", duration: "22 min", completed: false, preview: false},
-                        {id: 3, title: "Ethics Committee Requirements", type: "video", duration: "14 min", completed: false, preview: false}
-                    ]
-                }
-            ];
-            
-            currentCourse = coursesData.find(c => c.id === courseId) || coursesData[0];
-            
-            // Load user's progress
-            enrolledCourses = JSON.parse(localStorage.getItem('ccrest_enrolled_courses') || '[]');
-            
-            renderCourseHeader();
-            renderEnrolCard();
-            renderCurriculum();
-            renderDescription();
-            renderQASection();
-            
-            // Check if user is enrolled
-            const isEnrolled = enrolledCourses.includes(currentCourse.id);
-            if (currentUser && currentUser.role === 'learner' && isEnrolled) {
-                updateProgressUI();
-            }
+    async function loadCourseData() {
+    const courseId = getCourseIdFromUrl();
+
+    try {
+        const response = await fetch('https://ccrest-backend.onrender.com/api/courses');
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch courses');
         }
-        
+
+        const courses = await response.json();
+
+        // Find the course using MongoDB ID
+        const course = courses.find(c => String(c._id) === String(courseId));
+
+        if (!course) {
+            document.body.innerHTML = `
+                <div class="p-10 text-center">
+                    <h2 class="text-2xl font-bold">Course not found</h2>
+                    <a href="courses.html">Back to courses</a>
+                </div>
+            `;
+            return;
+        }
+
+        // Convert MongoDB course into the format used by this page
+        currentCourse = {
+            id: course._id,
+            title: course.title || course.name || 'Untitled Course',
+            price: Number(course.price) || 0,
+            isFree: Number(course.price) === 0,
+            level: course.level || 'Beginner',
+            duration: course.duration || 'Not specified',
+            enrolled: course.enrolled || 0,
+            rating: course.rating || 4.8,
+            instructor: course.instructor || 'CCREST Instructor',
+            thumbnail: course.thumbnail || 'assets/images/course-intro.jpg',
+            description: course.description || '',
+            lessons: course.lessons || 0,
+            completion: course.completion || 0,
+            students: course.students || 0,
+            lessonsList: course.lessonsList || []
+        };
+
+        // Load enrolled course IDs
+        enrolledCourses = JSON.parse(
+            localStorage.getItem('ccrest_enrolled_courses') || '[]'
+        );
+
+        renderCourseHeader();
+        renderEnrolCard();
+        renderCurriculum();
+        renderDescription();
+        renderQASection();
+
+        // Check enrollment using string IDs
+        const isEnrolled = enrolledCourses.some(
+            id => String(id) === String(currentCourse.id)
+        );
+
+        if (currentUser && currentUser.role === 'learner' && isEnrolled) {
+            updateProgressUI();
+        }
+
+    } catch (error) {
+        console.error('Course loading error:', error);
+
+        document.body.innerHTML = `
+            <div class="p-10 text-center">
+                <h2 class="text-2xl font-bold">Unable to load course</h2>
+                <p>Please refresh the page and try again.</p>
+                <a href="courses.html">Back to courses</a>
+            </div>
+        `;
+    }
+}
+      
         function renderCourseHeader() {
             document.getElementById('course-title').innerHTML = currentCourse.title;
             document.getElementById('course-instructor').innerHTML = currentCourse.instructor;

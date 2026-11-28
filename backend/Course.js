@@ -9,6 +9,11 @@ const lessonSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    type: {
+    type: String,
+    enum: ['video', 'quiz', 'document'],
+    default: 'video'
+},
     videoUrl: {
         type: String,
         default: ''
